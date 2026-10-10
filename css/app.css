@@ -101,6 +101,11 @@ h1,h2,h3,.hf{font-family:var(--font-display);font-weight:800}
 .rate .good{background:var(--g-rate-good);box-shadow:0 4px 0 #076F6E}
 .rate .easy{background:var(--g-rate-easy);box-shadow:0 4px 0 #5C8A0A;color:var(--c-ink)}
 .rate button:active{transform:translateY(3px)}
+/* rating + reveal row always reachable: stick to the viewport bottom so it can never be below the fold */
+.rate,.screen>[data-act=reveal]{position:sticky;bottom:0;z-index:5}
+.rate{background:var(--c-bg);padding-bottom:max(6px,env(safe-area-inset-bottom))}
+.screen>[data-act=reveal]{margin-bottom:max(0px,env(safe-area-inset-bottom))}
+@media (max-height:700px) and (orientation:portrait),(max-height:700px) and (min-width:700px){.flash .scene{aspect-ratio:330/130}}
 @media (max-width:340px){.rate{grid-template-columns:1fr 1fr}}
 
 /* quiz */
