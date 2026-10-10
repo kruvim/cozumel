@@ -40,3 +40,9 @@ content/images/*.svg  איור לכל כרטיסייה (viewBox 330x178; חסר 
 1. ליצור ריפו, לדחוף את תוכן התיקייה לענף `main`.
 2. Settings → Pages → Source: **GitHub Actions**.
 3. ה-workflow `.github/workflows/pages.yml` בודק תקינות JSON ומפרסם בכל push.
+
+## Cross-device sync (Vercel, free tier, no AI)
+- `api/sync.js`: serverless function. Auth header `x-cozumel-key` is compared with env var `COZUMEL_PASSWORD` (set in Vercel only, never in the repo).
+- Storage: a private Vercel Blob store (`BLOB_READ_WRITE_TOKEN` is injected by Vercel when the store is connected to the project).
+- Client (`js/app.js`): password is entered once per device and kept in localStorage; sync merges safely (`js/merge.js`: max/newest/union, no data loss). Export/import JSON buttons on the progress screen.
+- Without the API (GitHub Pages backup, offline) the app runs locally; set `API_BASE` in `js/config.js` to point the Pages copy at the Vercel URL.

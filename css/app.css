@@ -166,3 +166,10 @@ h1,h2,h3,.hf{font-family:var(--font-display);font-weight:800}
 .home-grid{display:contents}
 @media (min-width:900px){.home-grid{display:grid}}
 .home-grid .col{display:flex;flex-direction:column;gap:var(--gap-card)}
+
+.sync{display:flex;flex-direction:column;gap:10px}
+.sy-row{display:flex;gap:8px;flex-wrap:wrap}.sy-row .cta{flex:1 1 120px;width:auto;font-size:15px}
+.sy-pw{flex:2 1 160px;font-size:17px}
+.sy-st{display:inline-flex;align-items:center;gap:6px;font:700 13px var(--font-body,inherit);color:var(--c-ink-soft)}
+.sy-st i{width:9px;height:9px;border-radius:50%;background:var(--c-ink-muted)}
+.sy-st.ok i{background:var(--c-lime-500)}.sy-st.busy i{background:var(--c-teal-400)}.sy-st.bad i{background:#E5484D}.sy-st.offline i{background:#F5A524}

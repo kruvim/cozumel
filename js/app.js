@@ -31,7 +31,8 @@ var WAVE = '<svg class="wave" viewBox="0 0 390 40" preserveAspectRatio="none" ar
 function blank() { return { xp: 0, coins: 0, streak: 0, lastDay: null, days: {}, lessons: {}, cards: {}, quizzes: [] }; }
 function load() { try { var s = JSON.parse(localStorage.getItem(KEY)); if (s && typeof s === 'object') return Object.assign(blank(), s); } catch (e) {} return blank(); }
 var S = load();
-function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function rawSave() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function save() { rawSave(); if (window.CozumelSync) CozumelSync.schedule(); }
 function touchDay() {
   var t = today();
   if (S.lastDay === t) return;
@@ -318,7 +319,8 @@ function progress() {
       '<div class="card pad"><div class="sec">דקות לימוד, 7 ימים אחרונים</div><div class="week" role="img" aria-label="גרף דקות לימוד שבועי">' + days.map(function (x) { return '<div><span>' + x[1] + '</span><i style="height:' + Math.round(x[1] / max * 60) + 'px"></i><span>' + he[x[2]] + '</span></div>'; }).join('') + '</div></div>' +
       '<div class="card pad"><div class="sec">כרטיסיות שנלמדו: ' + seen + '</div></div>' +
       '<div class="card badges">' + bd.map(function (b) { return '<div class="bd' + (b[2] ? '' : ' lk') + '"><img src="assets/badge' + (b[0] === 'star' ? '-star' : b[0] === 'flame' ? '-flame' : b[0] === 'bolt' ? '-bolt' : '-monstera') + '.svg" alt="">' + esc(b[1]) + (b[2] ? '' : '<span class="vh"> (נעול)</span>') + '</div>'; }).join('') + '</div>' +
-      '<p class="small">ההתקדמות נשמרת רק בדפדפן הזה, במכשיר הזה.</p><button class="link" data-act="reset">איפוס כל ההתקדמות</button></div>', { title: 'התקדמות' });
+      '<div id="sync-card">' + (window.CozumelSync ? CozumelSync.html() : '') + '</div>' +
+      '<button class="link" data-act="reset">איפוס כל ההתקדמות</button></div>', { title: 'התקדמות' });
     renderNav('progress', false);
   });
 }
@@ -359,11 +361,92 @@ document.addEventListener('click', function (e) {
   else if (a === 'pick') answer(t.getAttribute('data-v'));
   else if (a === 'check') { var v = document.getElementById('ans').value; if (v.trim()) answer(v); }
   else if (a === 'next') { QS.i++; QS.answered = null; renderQ(); }
-  else if (a === 'reset') { if (confirm('למחוק את כל ההתקדמות?')) { S = blank(); save(); progress(); } }
+  else if (a === 'reset') { if (confirm('למחוק את כל ההתקדמות?' + (window.CozumelSync && CozumelSync.connected() ? ' (גם בשרת)' : ''))) { S = blank(); rawSave(); if (window.CozumelSync) CozumelSync.reset(); progress(); } }
+  else if (a === 'sync-connect') { var pw = document.getElementById('sync-pw'); if (pw && pw.value) CozumelSync.connect(pw.value); }
+  else if (a === 'sync-now') CozumelSync.sync(true);
+  else if (a === 'sync-off') CozumelSync.disconnect();
+  else if (a === 'sync-export') CozumelSync.exportFile();
+  else if (a === 'sync-import') { var fi = document.getElementById('sync-file'); if (fi) fi.click(); }
 });
 document.addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target.id === 'ans') { e.preventDefault(); if (e.target.value.trim()) answer(e.target.value); } });
 document.addEventListener('submit', function (e) { e.preventDefault(); });
+document.addEventListener('change', function (e) { if (e.target.id === 'sync-file' && e.target.files[0]) { CozumelSync.importFile(e.target.files[0]); e.target.value = ''; } });
+document.addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target.id === 'sync-pw' && e.target.value) { e.preventDefault(); CozumelSync.connect(e.target.value); } });
 window.addEventListener('hashchange', route);
+/* ---------- cross-device sync (optional; app works fully without it) ---------- */
+var SY = { key: '', status: 'off', msg: '', timer: null, busy: false, last: 0 };
+try { SY.key = localStorage.getItem('cozumel.key') || ''; } catch (e) {}
+var MG = window.CozumelMerge;
+function apiUrl() {
+  var base = (CFG.API_BASE != null ? String(CFG.API_BASE) : '').replace(/\/+$/, '');
+  if (!base && /\.github\.io$/.test(location.hostname)) return null;
+  if (location.protocol === 'file:' && !base) return null;
+  return base + '/api/sync';
+}
+function syAvailable() { return !!MG && !!apiUrl(); }
+function syPaint() { var c = document.getElementById('sync-card'); if (c) c.innerHTML = CozumelSync.html(); }
+function setStatus(st, msg) { SY.status = st; SY.msg = msg || ''; syPaint(); }
+function apply(merged) {
+  var before = JSON.stringify(S); S = Object.assign(blank(), merged);
+  if (JSON.stringify(S) !== before) { rawSave(); if (/^#\/(progress|lessons)?$/.test(location.hash) || location.hash === '') route(); }
+}
+function call(method, body) {
+  var ctl = typeof AbortController === 'function' ? new AbortController() : null, to = ctl && setTimeout(function () { ctl.abort(); }, 12000);
+  return fetch(apiUrl(), { method: method, headers: { 'content-type': 'application/json', 'x-cozumel-key': SY.key }, body: body ? JSON.stringify(body) : undefined, signal: ctl ? ctl.signal : undefined, cache: 'no-store' })
+    .then(function (r) { if (to) clearTimeout(to); return r.json().catch(function () { return {}; }).then(function (j) { j.status = r.status; return j; }); });
+}
+function doSync(manual) {
+  if (!syAvailable() || !SY.key || SY.busy) return Promise.resolve();
+  if (!navigator.onLine) { setStatus('offline', 'אין חיבור. ההתקדמות נשמרת במכשיר ותסונכרן בהמשך.'); return Promise.resolve(); }
+  SY.busy = true; setStatus('busy', 'מסנכרן…');
+  return call('POST', { state: S }).then(function (j) {
+    SY.busy = false;
+    if (j.status === 401) { setStatus('bad', 'הסיסמה שגויה'); return false; }
+    if (!j.ok || !j.state) { setStatus('offline', 'השרת לא זמין כרגע. ממשיכים מקומית.'); return false; }
+    apply(MG.merge(S, j.state)); SY.last = Date.now(); setStatus('ok', ''); return true;
+  }).catch(function () { SY.busy = false; setStatus('offline', 'השרת לא זמין כרגע. ממשיכים מקומית.'); return false; });
+}
+function fmtTime(t) { var d = new Date(t); return String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); }
+window.CozumelSync = {
+  connected: function () { return syAvailable() && !!SY.key; },
+  schedule: function () { if (!this.connected()) return; clearTimeout(SY.timer); SY.timer = setTimeout(function () { doSync(false); }, 3000); },
+  sync: doSync,
+  connect: function (pw) {
+    SY.key = String(pw).trim(); doSync(true).then(function (ok) { if (ok) { try { localStorage.setItem('cozumel.key', SY.key); } catch (e) {} syPaint(); } else if (SY.status === 'bad') { SY.key = ''; } else { try { localStorage.setItem('cozumel.key', SY.key); } catch (e) {} } });
+  },
+  disconnect: function () { SY.key = ''; try { localStorage.removeItem('cozumel.key'); } catch (e) {} setStatus('off', ''); },
+  reset: function () { if (!this.connected()) return; call('POST', { reset: true, state: S }).then(function (j) { setStatus(j.ok ? 'ok' : 'offline', j.ok ? '' : 'השרת לא אופס. נסו שוב מאוחר יותר.'); }).catch(function () { setStatus('offline', 'השרת לא אופס. נסו שוב מאוחר יותר.'); }); },
+  exportFile: function () {
+    var data = JSON.stringify({ app: 'cozumel', version: 1, exportedAt: new Date().toISOString(), state: S }, null, 1);
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([data], { type: 'application/json' })); a.download = 'cozumel-progress-' + today() + '.json';
+    document.body.appendChild(a); a.click(); setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  },
+  importFile: function (file) {
+    var rd = new FileReader();
+    rd.onload = function () {
+      try {
+        var j = JSON.parse(rd.result), st = j && j.app === 'cozumel' ? j.state : null;
+        if (!st || typeof st !== 'object') throw new Error('bad');
+        apply(MG.merge(S, st)); rawSave(); SY.msg = 'הקובץ יובא ושולב עם ההתקדמות הקיימת.'; SY.status = this.connected() ? SY.status : 'off'; progress(); this.schedule();
+        setTimeout(function () { var m = document.getElementById('sync-msg'); if (m) m.textContent = 'הקובץ יובא ושולב עם ההתקדמות הקיימת.'; }, 50);
+      } catch (e) { SY.msg = 'הקובץ לא תקין'; syPaint(); }
+    }.bind(this);
+    rd.readAsText(file);
+  },
+  html: function () {
+    var lbl = { off: 'לא מחובר', busy: 'מסנכרן…', ok: 'מסונכרן' + (SY.last ? ' · ' + fmtTime(SY.last) : ''), offline: 'לא זמין כרגע', bad: 'סיסמה שגויה' }[SY.status] || '';
+    var h = '<div class="card pad sync"><div class="row sec"><span>סנכרון בין מכשירים</span>' + (syAvailable() ? '<span class="sy-st ' + SY.status + '" role="status"><i aria-hidden="true"></i>' + lbl + '</span>' : '') + '</div>';
+    if (!syAvailable()) h += '<p class="small">סנכרון זמין באתר הראשי. כאן ההתקדמות נשמרת רק בדפדפן הזה. אפשר לגבות ולשחזר בקובץ.</p>';
+    else if (!SY.key || SY.status === 'bad') h += '<p class="small">הכניסו את הסיסמה האישית פעם אחת בכל מכשיר.</p><div class="sy-row"><input class="txt sy-pw" id="sync-pw" type="password" autocomplete="current-password" aria-label="סיסמה אישית" placeholder="סיסמה"><button class="cta" data-act="sync-connect">חיבור</button></div>';
+    else h += '<div class="sy-row"><button class="cta ghost" data-act="sync-now">סנכרון עכשיו</button><button class="cta ghost" data-act="sync-off">ניתוק</button></div>';
+    h += '<div class="sy-row"><button class="cta ghost" data-act="sync-export">ייצוא לקובץ</button><button class="cta ghost" data-act="sync-import">ייבוא מקובץ</button><input type="file" id="sync-file" accept="application/json,.json" hidden></div>';
+    h += '<p class="small" id="sync-msg" aria-live="polite">' + esc(SY.msg) + '</p></div>';
+    return h;
+  }
+};
+window.addEventListener('online', function () { doSync(false); });
+document.addEventListener('visibilitychange', function () { if (!document.hidden && Date.now() - SY.last > 30000) doSync(false); });
 if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(function () {});
 route();
+if (CozumelSync.connected()) doSync(false);
 })();
