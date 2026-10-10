@@ -9,6 +9,14 @@ var $nav = document.getElementById('nav');
 /* ---------- helpers ---------- */
 function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 function es(s) { return '<span class="es" dir="ltr" lang="es-MX">' + esc(s) + '</span>'; }
+var LAT = /[\u00BF\u00A1]?[A-Za-z\u00C0-\u00FF_][A-Za-z\u00C0-\u00FF0-9_]*(?:[ '\u2019\-,._]+[\u00BF\u00A1]?[A-Za-z\u00C0-\u00FF_][A-Za-z\u00C0-\u00FF0-9_]*)*[?!]?/g;
+// Hebrew text that may embed Spanish: escape, then isolate each Latin run so punctuation/quotes/order stay correct in RTL.
+function T(s) {
+  s = String(s == null ? '' : s); var out = '', last = 0, m; LAT.lastIndex = 0;
+  while ((m = LAT.exec(s))) { out += esc(s.slice(last, m.index)) + '<bdi class="lt" dir="ltr" lang="es-MX">' + esc(m[0]) + '</bdi>'; last = m.index + m[0].length; }
+  return out + esc(s.slice(last));
+}
+var RID = 0; // route generation: a slow screen must never overwrite a newer one
 function today() { var d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
 function norm(s) { return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[¿¡?!.,;:"'\s]+/g, ' ').trim(); }
 function cmp(s) { return String(s).trim().replace(/\s+/g, ' ').toLowerCase(); }
@@ -111,7 +119,7 @@ function renderNav(route, hide) {
 }
 function setView(html, opts) {
   $view.innerHTML = html;
-  window.scrollTo(0, 0);
+  window.scrollTo(0, KEEP); KEEP = 0;
   if (opts && opts.title) document.title = opts.title + ' · Cozumel';
   $view.focus({ preventScroll: true });
 }
@@ -155,7 +163,9 @@ function allCards() {
 
 /* ---------- screens ---------- */
 function home() {
+  var tok = RID;
   return loadLessons().then(allCards).then(function (cards) {
+    if (tok !== RID) return;
     var due = cards.filter(function (c) { return isDue(c.id); }).length;
     var nl = nextLesson(), per = CFG.XP_PER_LEVEL || 500, inLv = S.xp % per, goal = (CFG.DAILY_GOAL_MIN || 30) * 60, secs = S.days[today()] || 0;
     var pct = Math.min(100, Math.round(secs / goal * 100));
@@ -167,7 +177,7 @@ function home() {
       '<div class="body"><div class="home-grid"><div class="col">' + sampleBanner() +
       '<div class="card pad"><div class="row" style="font:700 13px var(--font-display)"><span>' + es(inLv + ' / ' + per + ' XP') + '</span><span style="display:flex;gap:4px;align-items:center"><img src="assets/bolt.svg" alt="" width="18" height="18">עוד ' + (per - inLv) + ' לרמה ' + (level() + 1) + '</span></div><div class="bar" role="progressbar" aria-valuenow="' + inLv + '" aria-valuemax="' + per + '" aria-label="התקדמות לרמה הבאה"><i style="width:' + Math.round(inLv / per * 100) + '%"></i></div></div>' +
       '<div class="card pad"><div class="row sec"><span>היעד היומי</span><small>' + Math.floor(secs / 60) + ' / ' + (CFG.DAILY_GOAL_MIN || 30) + ' דק׳</small></div><div class="bar" role="progressbar" aria-valuenow="' + pct + '" aria-valuemax="100" aria-label="יעד יומי"><i style="width:' + pct + '%"></i></div></div>' +
-      '<a class="cta" href="#/lesson/' + encodeURIComponent(nl.id) + '">' + ICON.play + 'המשך: ' + esc(nl.title_he) + ' · ' + (nl.minutes || 10) + ' דק׳</a>' +
+      '<a class="cta" href="#/lesson/' + encodeURIComponent(nl.id) + '">' + ICON.play + 'המשך: ' + T(nl.title_he) + ' · ' + (nl.minutes || 10) + ' דק׳</a>' +
       (due ? '<a class="cta ghost" href="#/review">חזרה על כרטיסיות (' + due + ' ממתינות)</a>' : '<div class="card pad small">אין כרטיסיות לחזרה כרגע. 🎉'.replace(' 🎉', '') + '</div>') +
       '</div><div class="col"><div class="card"><div class="row sec pad"><span>מסלול האי · קוזומל</span><small>' + done + '/' + C.lessons.lessons.length + ' שיעורים</small></div>' + mapHTML(C.lessons.lessons) + '</div></div></div></div>',
       { title: 'בית' });
@@ -176,26 +186,31 @@ function home() {
 }
 
 function lessonsList() {
+  var tok = RID;
   return loadLessons().then(function (d) {
+    if (tok !== RID) return;
     setView('<div class="screen narrow"><h1>שיעורים</h1>' + sampleBanner() + '<ul class="lessons">' + d.lessons.map(function (l) {
       var st = lessonState(l.id);
-      return '<li><a class="card li' + (st.done ? ' done' : '') + '" href="#/lesson/' + encodeURIComponent(l.id) + '"><span class="n">' + (st.done ? ICON.check : l.order) + '</span><span><b>' + esc(l.title_he) + '</b><span class="small">רמה ' + l.level + ' · ' + (l.minutes || 10) + ' דק׳' + (st.best != null ? ' · ציון ' + st.best + '%' : '') + '</span></span></a></li>';
+      return '<li><a class="card li' + (st.done ? ' done' : '') + '" href="#/lesson/' + encodeURIComponent(l.id) + '"><span class="n">' + (st.done ? ICON.check : l.order) + '</span><span><b>' + T(l.title_he) + '</b><span class="small">רמה ' + l.level + ' · ' + (l.minutes || 10) + ' דק׳' + (st.best != null ? ' · ציון ' + st.best + '%' : '') + '</span></span></a></li>';
     }).join('') + '</ul></div>', { title: 'שיעורים' });
     renderNav('lessons', false);
   });
 }
 
 function lesson(id) {
+  var tok = RID;
   return loadLessons().then(function () {
+    if (tok !== RID) return;
     var l = findLesson(id); if (!l) { location.hash = '#/lessons'; return; }
     return Promise.all([loadCards(l), loadQuiz(l)]).then(function (r) {
+      if (tok !== RID) return;
       var cards = r[0].cards, st = lessonState(l.id);
-      setView('<div class="topbar"><a class="x" href="#/lessons" aria-label="חזרה לשיעורים">' + ICON.x + '</a></div><div class="screen narrow"><h1>' + esc(l.title_he) + '</h1>' +
+      setView('<div class="topbar"><a class="x" href="#/lessons" aria-label="חזרה לשיעורים">' + ICON.x + '</a></div><div class="screen narrow"><h1>' + T(l.title_he) + '</h1>' +
         (r[0].sample ? '<div><span class="sample-badge">SAMPLE · תוכן דוגמה</span></div>' : '') +
-        (r[0].intro_he ? '<p>' + esc(r[0].intro_he) + '</p>' : '') + '<p class="small">' + cards.length + ' כרטיסיות · ' + r[1].questions.length + ' שאלות בחידון</p>' +
+        (r[0].intro_he ? '<p>' + T(r[0].intro_he) + '</p>' : '') + '<p class="small">' + cards.length + ' כרטיסיות · ' + r[1].questions.length + ' שאלות בחידון</p>' +
         '<a class="cta" href="#/cards/' + encodeURIComponent(l.id) + '">' + ICON.play + 'התחלת כרטיסיות</a>' +
         '<a class="cta lime" href="#/quiz/' + encodeURIComponent(l.id) + '">חידון סיום שיעור</a>' +
-        '<ul class="lessons">' + cards.map(function (c) { return '<li class="card pad"><div class="row"><span style="font-size:20px;font-weight:800">' + es(c.es_mx) + '</span><span>' + esc(c.he) + '</span></div></li>'; }).join('') + '</ul></div>', { title: l.title_he });
+        '<ul class="lessons">' + cards.map(function (c) { return '<li class="card pad"><div class="row"><span style="font-size:20px;font-weight:800">' + es(c.es_mx) + '</span><span>' + T(c.he) + '</span></div></li>'; }).join('') + '</ul></div>', { title: l.title_he });
       renderNav('lesson', false);
     });
   });
@@ -204,8 +219,10 @@ function lesson(id) {
 /* flashcards */
 var FS = null;
 function startCards(id, review) {
+  var tok = RID;
   var p = review ? loadLessons().then(allCards) : loadLessons().then(function () { var l = findLesson(id); if (!l) throw new Error('lesson ' + id); return loadCards(l).then(function (d) { return d.cards; }); });
   return p.then(function (cards) {
+    if (tok !== RID) return;
     if (review) cards = cards.filter(function (c) { return isDue(c.id); });
     FS = { id: id, review: review, list: review ? shuffle(cards) : cards.slice(), i: 0, shown: false, again: 0 };
     renderCard();
@@ -228,24 +245,26 @@ function renderCard() {
   }
   var c = FS.list[FS.i], pct = Math.round(FS.i / FS.list.length * 100);
   setView('<div class="topbar"><a class="x" href="' + back + '" aria-label="סגירה">' + ICON.x + '</a><div class="prog" role="progressbar" aria-valuenow="' + pct + '" aria-valuemax="100" aria-label="התקדמות"><i style="width:' + pct + '%"></i></div></div>' +
-    '<div class="screen narrow"><div class="meta"><span>כרטיסייה ' + (FS.i + 1) + ' מתוך ' + FS.list.length + '</span><span>' + (FS.review ? 'חזרה' : '') + '</span></div>' +
-    '<div class="flash">' + imgTag(c) +
+    '<div class="screen narrow"><h1 class="vh">כרטיסיות</h1><div class="meta"><span>כרטיסייה ' + (FS.i + 1) + ' מתוך ' + FS.list.length + '</span><span>' + (FS.review ? 'חזרה' : '') + '</span></div>' +
+    '<div class="flash" tabindex="-1">' + imgTag(c) +
     '<div class="word">' + '<button class="spk" data-act="speak" aria-label="השמעה: ' + esc(c.es_mx) + '">' + ICON.spk + '</button>' + es(c.es_mx) + '</div>' +
     '<div class="ph">[' + esc(c.transliteration_he) + ']</div>' +
-    (FS.shown ? '<div class="heb">' + esc(c.he) + '</div>' + (c.mexico_specific ? '<div class="mx">מקסיקו ספציפי' + (c.mexico_note_he ? ' · ' + esc(c.mexico_note_he) : '') + '</div>' : '') + (c.example ? '<div class="ex">' + es(c.example.es) + '<div class="small">' + esc(c.example.he) + '</div></div>' : '') : '') +
+    (FS.shown ? '<div class="heb">' + T(c.he) + '</div>' + (c.mexico_specific ? '<div class="mx">מקסיקו ספציפי' + (c.mexico_note_he ? ' · ' + T(c.mexico_note_he) : '') + '</div>' : '') + (c.example ? '<div class="ex">' + es(c.example.es) + '<div class="small">' + T(c.example.he) + '</div></div>' : '') : '') +
     '</div>' +
-    (FS.shown && c.tip_he ? '<div class="hint"><span class="bub">' + ICON.bulb + '</span><div><b>שימו לב</b>' + esc(c.tip_he) + '</div></div>' : '') +
+    (FS.shown && c.tip_he ? '<div class="hint"><span class="bub">' + ICON.bulb + '</span><div><b>שימו לב</b>' + T(c.tip_he) + '</div></div>' : '') +
     (FS.shown ? '<div class="rate" role="group" aria-label="דירוג הקושי">' + RATES.map(function (r, k) { return '<button class="' + r[0] + '" data-act="rate" data-k="' + k + '">' + r[1] + '<small>' + r[2] + '</small></button>'; }).join('') + '</div>'
       : '<button class="cta" data-act="reveal" style="margin-top:auto">הצגת תשובה</button>') + '</div>', { title: 'כרטיסיות' });
-  var b = $view.querySelector('[data-act=reveal],[data-k]'); if (b) b.focus({ preventScroll: true });
+  var b = FS.shown ? $view.querySelector('.flash') : $view.querySelector('[data-act=reveal]'); if (b) b.focus({ preventScroll: true }); // after reveal keep focus off the rating buttons so a double Enter cannot rate by accident
 }
 
 /* quiz */
 var QS = null;
 function startQuiz(id) {
+  var tok = RID;
   return loadLessons().then(function () {
+    if (tok !== RID) return;
     var l = findLesson(id); if (!l) { location.hash = '#/lessons'; return; }
-    return loadQuiz(l).then(function (d) { QS = { l: l, qs: d.questions, i: 0, ok: 0, answered: null, sample: d.sample }; renderQ(); });
+    return loadQuiz(l).then(function (d) { if (tok !== RID) return; QS = { l: l, qs: d.questions, i: 0, ok: 0, answered: null, sample: d.sample }; renderQ(); });
   });
 }
 function renderQ() {
@@ -263,18 +282,18 @@ function renderQ() {
       var cls = 'opt', mark = String.fromCharCode(1488 + k);
       if (a) { if (o === q.correct) cls += ' ok'; else if (o === a.value) cls += ' bad'; else cls += ' dim'; }
       var m = a ? (o === q.correct ? ICON.check : o === a.value ? ICON.cross : mark) : mark;
-      return '<button class="' + cls + '" data-act="pick" data-v="' + esc(o) + '"' + (a ? ' disabled' : '') + '><span>' + (lang ? es(o) : esc(o)) + (a && o === q.correct ? '<span class="vh"> (נכון)</span>' : a && o === a.value ? '<span class="vh"> (שגוי)</span>' : '') + '</span><span class="ln" aria-hidden="true">' + m + '</span></button>';
+      return '<button class="' + cls + '" data-act="pick" data-v="' + esc(o) + '"' + (a ? ' disabled' : '') + '><span>' + (lang ? es(o) : T(o)) + (a && o === q.correct ? '<span class="vh"> (נכון)</span>' : a && o === a.value ? '<span class="vh"> (שגוי)</span>' : '') + '</span><span class="ln" aria-hidden="true">' + m + '</span></button>';
     }).join('') + '</div>';
   }
   var fb = '';
   if (a) {
-    fb = '<div class="fb' + (a.right ? '' : ' bad') + '" role="status"><h2>' + (a.right ? 'מעולה!' : 'כמעט') + '</h2><p>' + (a.right ? '' : 'התשובה הנכונה: ' + es(q.correct) + '. ') + esc(q.explanation_he || '') + '</p>' +
+    fb = '<div class="fb' + (a.right ? '' : ' bad') + '" role="status"><h2>' + (a.right ? 'מעולה!' : 'כמעט') + '</h2><p>' + (a.right ? '' : 'התשובה הנכונה: ' + (isHe(q.correct) ? T(q.correct) : es(q.correct)) + '. ') + T(q.explanation_he || '') + '</p>' +
       (a.right ? '<div class="rw"><span class="pill"><img src="assets/bolt.svg" alt="">' + es('+10 XP') + '</span><span class="pill"><img src="assets/coin.svg" alt="">' + es('+2') + '</span></div>' : '') +
       '<button class="cta lime" data-act="next" id="next">' + (QS.i + 1 >= QS.qs.length ? 'לתוצאות' : 'המשך') + '</button></div>';
   }
   setView('<div class="topbar"><a class="x" href="' + back + '" aria-label="יציאה מהחידון">' + ICON.x + '</a><div class="prog" role="progressbar" aria-valuenow="' + pct + '" aria-valuemax="100" aria-label="התקדמות בחידון"><i style="width:' + pct + '%"></i></div></div>' +
-    '<div class="screen narrow"><div class="meta"><span>שאלה ' + (QS.i + 1) + ' מתוך ' + QS.qs.length + (q.type === 'type_answer' ? ' · כתיבה' : ' · בחירה מרובה') + '</span>' + (QS.sample ? '<span class="sample-badge">SAMPLE</span>' : '') + '</div>' +
-    '<div class="card pad"><div class="q">' + esc(q.prompt_he) + (q.prompt_es ? ' ' + es(q.prompt_es) : '') + '</div></div>' + body + '</div>' + fb, { title: 'חידון' });
+    '<div class="screen narrow"><h1 class="vh">חידון</h1><div class="meta"><span>שאלה ' + (QS.i + 1) + ' מתוך ' + QS.qs.length + (q.type === 'type_answer' ? ' · כתיבה' : ' · בחירה מרובה') + '</span>' + (QS.sample ? '<span class="sample-badge">SAMPLE</span>' : '') + '</div>' +
+    '<div class="card pad"><div class="q">' + T(q.prompt_he) + (q.prompt_es ? ' ' + es(q.prompt_es) : '') + '</div></div>' + body + '</div>' + fb, { title: 'חידון' });
   var f = a ? document.getElementById('next') : (q.type === 'type_answer' ? document.getElementById('ans') : null);
   if (f) f.focus({ preventScroll: true });
 }
@@ -293,7 +312,7 @@ function quizResult() {
   var bonus = first ? 20 : 0; reward(bonus, first ? 10 : 0);
   setView('<div class="topbar"><a class="x" href="#/lessons" aria-label="סגירה">' + ICON.x + '</a></div><div class="screen narrow"><div class="result"><h1>' + (pct >= 80 ? 'מעולה!' : pct >= 50 ? 'יפה, ממשיכים' : 'כדאי לחזור על הכרטיסיות') + '</h1><div class="big">' + es(pct + '%') + '</div><p>' + QS.ok + ' מתוך ' + n + ' תשובות נכונות</p>' +
     (first ? '<div class="rw"><span class="pill"><img src="assets/bolt.svg" alt="">' + es('+20 XP') + '</span><span class="pill"><img src="assets/coin.svg" alt="">' + es('+10') + '</span></div><p class="small">השיעור הושלם</p>' : '') +
-    '<a class="cta" href="#/">לדף הבית</a><a class="cta ghost" href="#/quiz/' + encodeURIComponent(QS.l.id) + '">ניסיון נוסף</a></div></div>', { title: 'תוצאות' });
+    '<a class="cta" href="#/">לדף הבית</a><button class="cta ghost" data-act="retry">ניסיון נוסף</button></div></div>', { title: 'תוצאות' });
   confetti();
 }
 function confetti() {
@@ -306,7 +325,9 @@ function confetti() {
 
 /* progress */
 function progress() {
+  var tok = RID;
   return loadLessons().then(function (d) {
+    if (tok !== RID) return;
     var done = d.lessons.filter(function (l) { return lessonState(l.id).done; }).length;
     var seen = Object.keys(S.cards).length, total = 0;
     var days = []; for (var i = 6; i >= 0; i--) { var dt = new Date(); dt.setDate(dt.getDate() - i); var k = dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0') + '-' + String(dt.getDate()).padStart(2, '0'); days.push([k, Math.round((S.days[k] || 0) / 60), dt.getDay()]); }
@@ -334,7 +355,9 @@ function chat() {
 }
 
 /* ---------- router ---------- */
-function route() {
+var KEEP = 0;
+function route(keep) {
+  RID++; KEEP = keep === true ? window.scrollY : 0;
   var h = location.hash.replace(/^#\/?/, ''), parts = h.split('/'), r = parts[0], id = decodeURIComponent(parts[1] || '');
   var p;
   if (r === '') p = home();
@@ -349,6 +372,7 @@ function route() {
   p.catch(err);
 }
 document.addEventListener('click', function (e) {
+  var sk = e.target.closest('a.skip'); if (sk) { e.preventDefault(); $view.focus(); return; }
   var t = e.target.closest('[data-act]'); if (!t) return;
   var a = t.getAttribute('data-act');
   if (a === 'speak') speak(FS.list[FS.i].es_mx);
@@ -356,10 +380,12 @@ document.addEventListener('click', function (e) {
   else if (a === 'rate') {
     var k = +t.getAttribute('data-k'), c = FS.list[FS.i];
     S.cards[c.id] = { due: Date.now() + RATES[k][3], last: RATES[k][0] }; reward(2, 0);
+    if (RATES[k][0] === 'again' && FS.list.length < 400) FS.list.push(c); // 'again' returns later in this session
     FS.i++; FS.shown = false; renderCard();
   }
   else if (a === 'pick') answer(t.getAttribute('data-v'));
   else if (a === 'check') { var v = document.getElementById('ans').value; if (v.trim()) answer(v); }
+  else if (a === 'retry') { RID++; startQuiz(QS.l.id).catch(err); }
   else if (a === 'next') { QS.i++; QS.answered = null; renderQ(); }
   else if (a === 'reset') { if (confirm('למחוק את כל ההתקדמות?' + (window.CozumelSync && CozumelSync.connected() ? ' (גם בשרת)' : ''))) { S = blank(); rawSave(); if (window.CozumelSync) CozumelSync.reset(); progress(); } }
   else if (a === 'sync-connect') { var pw = document.getElementById('sync-pw'); if (pw && pw.value) CozumelSync.connect(pw.value); }
@@ -372,7 +398,7 @@ document.addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.t
 document.addEventListener('submit', function (e) { e.preventDefault(); });
 document.addEventListener('change', function (e) { if (e.target.id === 'sync-file' && e.target.files[0]) { CozumelSync.importFile(e.target.files[0]); e.target.value = ''; } });
 document.addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target.id === 'sync-pw' && e.target.value) { e.preventDefault(); CozumelSync.connect(e.target.value); } });
-window.addEventListener('hashchange', route);
+window.addEventListener('hashchange', function () { route(); });
 /* ---------- cross-device sync (optional; app works fully without it) ---------- */
 var SY = { key: '', status: 'off', msg: '', timer: null, busy: false, last: 0 };
 try { SY.key = localStorage.getItem('cozumel.key') || ''; } catch (e) {}
@@ -388,7 +414,7 @@ function syPaint() { var c = document.getElementById('sync-card'); if (c) c.inne
 function setStatus(st, msg) { SY.status = st; SY.msg = msg || ''; syPaint(); }
 function apply(merged) {
   var before = JSON.stringify(S); S = Object.assign(blank(), merged);
-  if (JSON.stringify(S) !== before) { rawSave(); if (/^#\/(progress|lessons)?$/.test(location.hash) || location.hash === '') route(); }
+  if (JSON.stringify(S) !== before) { rawSave(); if (/^#\/(progress|lessons)?$/.test(location.hash) || location.hash === '') route(true); }
 }
 function call(method, body) {
   var ctl = typeof AbortController === 'function' ? new AbortController() : null, to = ctl && setTimeout(function () { ctl.abort(); }, 12000);
