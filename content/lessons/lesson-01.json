@@ -250,9 +250,9 @@
     {
       "id": "l01-q08",
       "type": "fill_in",
-      "prompt_he": "השלימו את הברכה: Buenas ____ . (ערב טוב / לילה טוב)",
+      "prompt_he": "השעה 10 בלילה ואתם נפרדים לשלום. השלימו את הברכה: Buenas ____ (לילה טוב)",
       "answer": "noches",
-      "explanation_he": "\"Buenas noches\" משמש לערב ולילה.",
+      "explanation_he": "\"Buenas noches\" = לילה טוב, וגם ערב טוב אחרי החשכה. עד הערב משתמשים ב-\"Buenas tardes\".",
       "card_id": "l01-c04",
       "accepted_answers": [
         "noches"
