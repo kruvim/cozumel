@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "sample": false,
+  "lessons": [
+    {
+      "id": "lesson-01",
+      "order": 1,
+      "level": "A1",
+      "title_he": "ברכות ונימוס בסיסי למטייל במקסיקו",
+      "topic": "Saludos y cortesía básica",
+      "minutes": 15,
+      "file": "lessons/lesson-01.json"
+    }
+  ]
+}

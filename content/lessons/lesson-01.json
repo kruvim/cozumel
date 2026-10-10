@@ -1,0 +1,262 @@
+{
+  "id": "lesson-01",
+  "order": 1,
+  "topic_he": "ברכות ונימוס בסיסי למטייל במקסיקו",
+  "topic_es": "Saludos y cortesía básica",
+  "level": "A1",
+  "estimated_minutes": 15,
+  "intro_he": "בשיעור הזה נלמד לומר שלום, לשאול מה שלומך, להודות ולבקש בנימוס, ונכיר שני ביטויים מקסיקניים אופייניים: \"con permiso\" ו-\"¿mande?\". בסוף יש חידון קצר של 8 שאלות.",
+  "cards": [
+    {
+      "id": "l01-c01",
+      "es": "Hola",
+      "transliteration_he": "או-לה",
+      "he": "שלום / היי",
+      "example_es": "Hola, ¿qué tal?",
+      "example_he": "היי, מה שלומך?",
+      "image": "hola.svg",
+      "mexico_specific": false,
+      "note_he": "ה' בספרדית שותקת, לכן מתחילים ב\"או\"."
+    },
+    {
+      "id": "l01-c02",
+      "es": "Buenos días",
+      "transliteration_he": "בואנוס דיאס",
+      "he": "בוקר טוב",
+      "example_es": "Buenos días, señor.",
+      "example_he": "בוקר טוב, אדוני.",
+      "image": "buenos-dias.svg",
+      "mexico_specific": false,
+      "note_he": "אומרים עד סביבות הצהריים."
+    },
+    {
+      "id": "l01-c03",
+      "es": "Buenas tardes",
+      "transliteration_he": "בואנאס טארדס",
+      "he": "צהריים טובים / אחר הצהריים טובים",
+      "example_es": "Buenas tardes, ¿tiene una mesa?",
+      "example_he": "צהריים טובים, יש לכם שולחן?",
+      "image": "buenas-tardes.svg",
+      "mexico_specific": true,
+      "note_he": "במקסיקו \"buenas tardes\" מתחיל כבר אחרי הצהריים (בערך מ-12:00-13:00) ועד שהחשכה יורדת. ברחוב שומעים גם את הקיצור \"buenas\"."
+    },
+    {
+      "id": "l01-c04",
+      "es": "Buenas noches",
+      "transliteration_he": "בואנאס נוצ'ס",
+      "he": "ערב טוב / לילה טוב",
+      "example_es": "Buenas noches, hasta mañana.",
+      "example_he": "לילה טוב, נתראה מחר.",
+      "image": "buenas-noches.svg",
+      "mexico_specific": false,
+      "note_he": "משמש גם כברכת ערב וגם כברכת לילה טוב. ה-ch נהגית \"צ'\"."
+    },
+    {
+      "id": "l01-c05",
+      "es": "¿Cómo está?",
+      "transliteration_he": "קומו אסטה",
+      "he": "מה שלומך? (בצורה מנומסת)",
+      "example_es": "¿Cómo está usted?",
+      "example_he": "מה שלומך? (לאדם זר או מבוגר)",
+      "image": "como-esta.svg",
+      "mexico_specific": false,
+      "note_he": "לאנשים זרים ולמבוגרים אומרים usted (\"¿Cómo está?\"). לחברים: \"¿Cómo estás?\"."
+    },
+    {
+      "id": "l01-c06",
+      "es": "Bien, gracias",
+      "transliteration_he": "ביין, גראסיאס",
+      "he": "בסדר, תודה",
+      "example_es": "Bien, gracias. ¿Y usted?",
+      "example_he": "בסדר, תודה. ואתה?",
+      "image": "bien-gracias.svg",
+      "mexico_specific": false,
+      "note_he": "האות s ב-gracias נהגית \"ס\" (לא \"ת\" כמו בספרד)."
+    },
+    {
+      "id": "l01-c07",
+      "es": "Por favor",
+      "transliteration_he": "פור פאבור",
+      "he": "בבקשה (כשמבקשים משהו)",
+      "example_es": "Un café, por favor.",
+      "example_he": "קפה, בבקשה.",
+      "image": "por-favor.svg",
+      "mexico_specific": false,
+      "note_he": "נאמר כשמבקשים משהו. אל תתבלבלו עם \"de nada\", שזה \"בבקשה\" בתגובה לתודה."
+    },
+    {
+      "id": "l01-c08",
+      "es": "Gracias",
+      "transliteration_he": "גראסיאס",
+      "he": "תודה",
+      "example_es": "Muchas gracias por su ayuda.",
+      "example_he": "תודה רבה על העזרה.",
+      "image": "gracias.svg",
+      "mexico_specific": false,
+      "note_he": "\"Muchas gracias\" = תודה רבה."
+    },
+    {
+      "id": "l01-c09",
+      "es": "De nada",
+      "transliteration_he": "דה נאדה",
+      "he": "על לא דבר",
+      "example_es": "—Gracias. —De nada.",
+      "example_he": "—תודה. —על לא דבר.",
+      "image": "de-nada.svg",
+      "mexico_specific": false,
+      "note_he": "בתגובה ל-gracias. במקסיקו שומעים גם \"con gusto\" ו-\"no hay de qué\"."
+    },
+    {
+      "id": "l01-c10",
+      "es": "Con permiso",
+      "transliteration_he": "קון פרמיסו",
+      "he": "סליחה, אפשר לעבור / עם הרשות",
+      "example_es": "Con permiso, quiero pasar.",
+      "example_he": "סליחה, אני רוצה לעבור.",
+      "image": "con-permiso.svg",
+      "mexico_specific": true,
+      "note_he": "נפוץ מאוד במקסיקו: כשעוברים בין אנשים, נכנסים לחדר או קמים משולחן משותף. מצופה בנימוס."
+    },
+    {
+      "id": "l01-c11",
+      "es": "¿Mande?",
+      "transliteration_he": "מאנדה",
+      "he": "סליחה? / מה אמרת? (בנימוס)",
+      "example_es": "¿Mande? No le escuché.",
+      "example_he": "סליחה? לא שמעתי אותך.",
+      "image": "mande.svg",
+      "mexico_specific": true,
+      "note_he": "ביטוי מקסיקני אופייני: משתמשים בו כשלא שמעתם או כשמישהו קורא לכם, במקום \"¿Qué?\" שנשמע גס."
+    },
+    {
+      "id": "l01-c12",
+      "es": "¿Cuánto cuesta?",
+      "transliteration_he": "קואנטו קואסטה",
+      "he": "כמה זה עולה?",
+      "example_es": "¿Cuánto cuesta esta artesanía?",
+      "example_he": "כמה עולה הפריט הזה (מעשה יד)?",
+      "image": "cuanto-cuesta.svg",
+      "mexico_specific": false,
+      "note_he": "שימושי בשווקים. אפשר גם \"¿Cuánto es?\" (כמה לשלם)."
+    },
+    {
+      "id": "l01-c13",
+      "es": "Perdón",
+      "transliteration_he": "פרדון",
+      "he": "סליחה (על טעות)",
+      "example_es": "Perdón, me equivoqué.",
+      "example_he": "סליחה, טעיתי.",
+      "image": "perdon.svg",
+      "mexico_specific": false,
+      "note_he": "התנצלות על טעות או על התנגשות קלה. לעומת con permiso, שבו מבקשים רשות מראש."
+    }
+  ],
+  "quiz": [
+    {
+      "id": "l01-q01",
+      "type": "multiple_choice",
+      "prompt_he": "איך אומרים \"תודה\" בספרדית?",
+      "options": [
+        "Gracias",
+        "De nada",
+        "Perdón",
+        "Hola"
+      ],
+      "answer": "Gracias",
+      "explanation_he": "\"Gracias\" = תודה. \"De nada\" היא התגובה לתודה.",
+      "card_id": "l01-c08"
+    },
+    {
+      "id": "l01-q02",
+      "type": "multiple_choice",
+      "prompt_he": "מה עונים למישהו שאמר לכם \"Gracias\"?",
+      "options": [
+        "Por favor",
+        "De nada",
+        "Buenos días",
+        "Con permiso"
+      ],
+      "answer": "De nada",
+      "explanation_he": "\"De nada\" = על לא דבר.",
+      "card_id": "l01-c09"
+    },
+    {
+      "id": "l01-q03",
+      "type": "multiple_choice",
+      "prompt_he": "השעה 9 בבוקר. איזו ברכה מתאימה?",
+      "options": [
+        "Buenas noches",
+        "Buenas tardes",
+        "Buenos días",
+        "Adiós"
+      ],
+      "answer": "Buenos días",
+      "explanation_he": "\"Buenos días\" = בוקר טוב, עד סביבות הצהריים.",
+      "card_id": "l01-c02"
+    },
+    {
+      "id": "l01-q04",
+      "type": "multiple_choice",
+      "prompt_he": "אתם רוצים לעבור בין אנשים בשוק צפוף. מה אומרים (בנימוס, כמו במקסיקו)?",
+      "options": [
+        "Con permiso",
+        "¿Cuánto cuesta?",
+        "Buenas noches",
+        "Bien, gracias"
+      ],
+      "answer": "Con permiso",
+      "explanation_he": "\"Con permiso\" = סליחה, אפשר לעבור.",
+      "card_id": "l01-c10"
+    },
+    {
+      "id": "l01-q05",
+      "type": "multiple_choice",
+      "prompt_he": "לא שמעתם מה אמרה המוכרת. איזה ביטוי מקסיקני מנומס מתאים?",
+      "options": [
+        "¿Mande?",
+        "¿Cómo está?",
+        "Por favor",
+        "Hola"
+      ],
+      "answer": "¿Mande?",
+      "explanation_he": "\"¿Mande?\" הוא הדרך המקסיקנית המנומסת לומר \"סליחה? מה אמרת?\".",
+      "card_id": "l01-c11"
+    },
+    {
+      "id": "l01-q06",
+      "type": "multiple_choice",
+      "prompt_he": "מה פירוש \"¿Cuánto cuesta?\"",
+      "options": [
+        "איפה השירותים?",
+        "כמה זה עולה?",
+        "מה שלומך?",
+        "מה השעה?"
+      ],
+      "answer": "כמה זה עולה?",
+      "explanation_he": "\"¿Cuánto cuesta?\" = כמה זה עולה?",
+      "card_id": "l01-c12"
+    },
+    {
+      "id": "l01-q07",
+      "type": "fill_in",
+      "prompt_he": "השלימו: Un café, ____ . (בבקשה)",
+      "answer": "por favor",
+      "explanation_he": "כשמבקשים משהו אומרים \"por favor\".",
+      "card_id": "l01-c07",
+      "accepted_answers": [
+        "por favor"
+      ]
+    },
+    {
+      "id": "l01-q08",
+      "type": "fill_in",
+      "prompt_he": "השלימו את הברכה: Buenas ____ . (ערב טוב / לילה טוב)",
+      "answer": "noches",
+      "explanation_he": "\"Buenas noches\" משמש לערב ולילה.",
+      "card_id": "l01-c04",
+      "accepted_answers": [
+        "noches"
+      ]
+    }
+  ]
+}

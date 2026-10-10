@@ -1,0 +1,134 @@
+/* COZUMEL design tokens — extracted from v3/direction-e2.html (Tropical Leaf, light only) */
+
+:root {
+  /* Ink / text */
+  --c-ink: #0E3B3A;          /* main text, dark teal */
+  --c-ink-soft: #4F7D72;     /* secondary text */
+  --c-ink-muted: #7A9E92;    /* inactive nav, hints */
+  --c-logo-shadow: #0B4F55;
+
+  /* Surfaces */
+  --c-bg: #F4FFF0;           /* app background */
+  --c-bg-page-a: #CFEEE4;    /* presentation page only */
+  --c-bg-page-b: #E9F6C9;
+  --c-surface: #FFFFFF;
+  --c-border: #DDF3E6;       /* card border */
+  --c-border-strong: #CDEFD9;/* option border / 3D bottom edge */
+  --c-track: #E3F3E6;        /* progress track */
+  --c-track-alt: #DCEFE4;
+
+  /* Brand */
+  --c-teal-300: #44DAD2;
+  --c-teal-400: #2CC9C2;
+  --c-teal-500: #14B5AE;
+  --c-teal-600: #0A9A98;
+  --c-teal-700: #076F6E;     /* 3D edge for teal */
+  --c-lime-100: #F2FBB8;
+  --c-lime-200: #DFF48A;
+  --c-lime-300: #D2EC4C;
+  --c-lime-400: #B4D93A;
+  --c-lime-500: #9BC417;
+  --c-lime-600: #7FB414;
+  --c-lime-700: #5C8A0A;
+  --c-lime-ink: #35520A;     /* text on lime */
+  --c-mint: #7FD6A4;
+  --c-green: #27B574;
+  --c-green-dark: #0E8F78;
+  --c-correct: #8CB817;
+
+  /* Accents */
+  --c-gold-200: #FFE98A;
+  --c-gold-400: #FFC24B;
+  --c-gold-600: #E88B14;
+  --c-gold-700: #E08A14;
+  --c-orange: #FF9A2E;
+  --c-coral: #FF5A3C;
+  --c-coral-400: #FF8F73;
+  --c-coral-600: #E8553A;
+  --c-coral-700: #B83A24;
+  --c-amber-edge: #B8730F;
+  --c-sky: #7CC8F2;
+  --c-blue: #2E86C1;
+
+  /* Feedback */
+  --c-wrong-bg: #FFF1EC;
+  --c-wrong-border: #FFB4A0;
+  --c-wrong-edge: #FFC9BA;
+
+  /* Locked */
+  --c-locked-fill: #D5E6E1;
+  --c-locked-ring: #9FB8B3;
+  --c-locked-icon: #6F8F88;
+
+  /* Gradients */
+  --g-hero: linear-gradient(160deg, #D2EC4C 0%, #7FD6A4 48%, #14B5AE 100%);
+  --g-page: linear-gradient(160deg, #CFEEE4, #E9F6C9);
+  --g-leaf: linear-gradient(135deg, #D8F25A, #27B574);
+  --g-leaf-dark: linear-gradient(135deg, #7FD6A4, #0E8F78);
+  --g-teal: linear-gradient(180deg, #2CC9C2, #0A9A98);
+  --g-teal-svg: linear-gradient(180deg, #44DAD2, #0A8F8D);
+  --g-lime-bar: linear-gradient(180deg, #E3F56E, #9BC417 60%, #7FB414);
+  --g-lime-cta: linear-gradient(180deg, #B4D93A, #6FA10C);
+  --g-lime-soft: linear-gradient(135deg, #F2FBB8, #DFF48A);
+  --g-option-ok: linear-gradient(135deg, #F0FBB0, #D4EE6A);
+  --g-sheet: linear-gradient(180deg, #F3FCC4, #D5EF70);
+  --g-gold: linear-gradient(180deg, #FFE98A, #FFC24B 55%, #E88B14);
+  --g-flame: linear-gradient(180deg, #FFD84A, #FF9A2E 50%, #FF5A3C);
+  --g-sky: linear-gradient(180deg, #7CC8F2, #CFF1EA 60%, #FFF1C4);
+  --g-sea: linear-gradient(180deg, #3FD0C9, #1C8FB8);
+  --g-sand: linear-gradient(180deg, #FFF3C9, #F5D890);
+  --g-nav-active: linear-gradient(#E9FBEF, #CFF3E1);
+  --g-rate-again: linear-gradient(#FF8F73, #E8553A);
+  --g-rate-hard: linear-gradient(#FFD36A, #E8981A);
+  --g-rate-good: linear-gradient(#2CC9C2, #0A9A98);
+  --g-rate-easy: linear-gradient(#B4D93A, #7FB414);
+  --g-hero-sheen: radial-gradient(circle at 12% 18%, rgba(255,244,190,.75), transparent 38%),
+                  repeating-linear-gradient(115deg, rgba(255,255,255,.12) 0 3px, transparent 3px 16px);
+
+  /* Fonts */
+  --font-display: 'Rubik', 'Arial Hebrew', 'Segoe UI', Arial, sans-serif;
+  --font-body: 'Assistant', 'Arial Hebrew', 'Segoe UI', Arial, sans-serif;
+  --font-logo: 'Rubik', 'Arial Black', sans-serif;
+
+  /* Type scale (px) */
+  --fs-2xs: 10px;  --fs-xs: 11px;  --fs-sm: 12px;  --fs-base: 13px;
+  --fs-md: 14px;   --fs-lg: 15px;  --fs-xl: 17px;  --fs-q: 20px;
+  --fs-h1: 21px;   --fs-h2: 24px;  --fs-word: 40px; --fs-logo: 54px;
+
+  /* Spacing (4/2-based; values seen in source) */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 28px;
+  --gap-card: 11px;
+  --page-pad: 16px;     /* body gutter */
+  --screen-pad: 20px;   /* hero / quiz gutter */
+
+  /* Radii */
+  --r-xs: 8px; --r-sm: 12px; --r-md: 16px; --r-lg: 18px; --r-xl: 20px;
+  --r-card: 22px; --r-flash: 28px; --r-sheet: 30px; --r-pill: 9px; --r-full: 50%;
+
+  /* Shadows */
+  --sh-card: 0 8px 20px rgba(14,59,58,.12), 0 2px 0 #CDEFD9, inset 0 1px 0 #fff;
+  --sh-chip: 0 3px 0 rgba(14,59,58,.15), inset 0 1px 0 #fff;
+  --sh-flash: 0 12px 26px rgba(14,59,58,.16), 0 6px 0 #BFE6CF;
+  --sh-cta: 0 5px 0 #076F6E, inset 0 2px 0 rgba(255,255,255,.5);
+  --sh-cta-lime: 0 5px 0 #4E7A06, inset 0 2px 0 rgba(255,255,255,.5);
+  --sh-btn-small: 0 3px 0 #076F6E;
+  --sh-hint: 0 4px 0 #BCD63A, inset 0 1px 0 #fff;
+  --sh-option: 0 4px 0 #CDEFD9;
+  --sh-inset: inset 0 2px 3px rgba(14,59,58,.15);
+  --sh-bar-gloss: inset 0 2px 0 rgba(255,255,255,.55);
+  --sh-sheet: 0 -10px 30px rgba(14,59,58,.18);
+  --sh-icon: drop-shadow(0 3px 2px rgba(14,59,58,.25));
+  --sh-svg-node: drop-shadow(0 3px 3px rgba(14,59,58,.28));
+
+  /* Layout */
+  --tap-min: 44px;
+  --content-max: 480px;
+  --nav-item-w: 62px;
+}
+
+/* Base helpers */
+html { direction: rtl; }
+body { background: var(--c-bg); color: var(--c-ink); font-family: var(--font-body); }
+h1, h2, h3, .hf { font-family: var(--font-display); font-weight: 800; }
+/* Spanish / LTR text islands */
+.es, [dir="ltr"].es { direction: ltr; unicode-bidi: isolate; display: inline-block; font-family: var(--font-display); }
