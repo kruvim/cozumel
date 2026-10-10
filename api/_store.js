@@ -7,7 +7,7 @@ var LOCAL = nodePath.join(process.env.COZUMEL_LOCAL_DIR || process.cwd(), '.loca
 async function read() {
   if (process.env.COZUMEL_LOCAL_STORE) { try { return JSON.parse(fs.readFileSync(LOCAL, 'utf8')); } catch (e) { return null; } }
   var blob = require('@vercel/blob');
-  var r = await blob.get(PATH, { access: 'private' });
+  var r = await blob.get(PATH, { access: 'private', useCache: false });
   if (!r || r.statusCode !== 200) return null;
   return JSON.parse(await new Response(r.stream).text());
 }
