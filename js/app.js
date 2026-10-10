@@ -254,6 +254,7 @@ function renderCard() {
     (FS.shown && c.tip_he ? '<div class="hint"><span class="bub">' + ICON.bulb + '</span><div><b>שימו לב</b>' + T(c.tip_he) + '</div></div>' : '') +
     (FS.shown ? '<div class="rate" role="group" aria-label="דירוג הקושי">' + RATES.map(function (r, k) { return '<button class="' + r[0] + '" data-act="rate" data-k="' + k + '">' + r[1] + '<small>' + r[2] + '</small></button>'; }).join('') + '</div>'
       : '<button class="cta" data-act="reveal" style="margin-top:auto">הצגת תשובה</button>') + '</div>', { title: 'כרטיסיות' });
+  if (FS.shown) { var rt = $view.querySelector('.rate'); if (rt && rt.scrollIntoView) rt.scrollIntoView({ block: 'nearest' }); }
   var b = FS.shown ? $view.querySelector('.flash') : $view.querySelector('[data-act=reveal]'); if (b) b.focus({ preventScroll: true }); // after reveal keep focus off the rating buttons so a double Enter cannot rate by accident
 }
 
@@ -395,6 +396,12 @@ document.addEventListener('click', function (e) {
   else if (a === 'sync-import') { var fi = document.getElementById('sync-file'); if (fi) fi.click(); }
 });
 document.addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target.id === 'ans') { e.preventDefault(); if (e.target.value.trim()) answer(e.target.value); } });
+document.addEventListener('keydown', function (e) { // flashcards: Space/Enter on the card reveals, 1-4 rates (RTL order: 1 = again)
+  if (e.ctrlKey || e.metaKey || e.altKey || !FS || !/^#\/(cards|review)\b/.test(location.hash) || !$view.querySelector('.flash')) return;
+  var tg = e.target && e.target.tagName; if (tg === 'INPUT' || tg === 'TEXTAREA' || tg === 'A') return;
+  if (!FS.shown && (e.key === ' ' || e.key === 'Enter') && tg !== 'BUTTON') { e.preventDefault(); var rv = $view.querySelector('[data-act=reveal]'); if (rv) rv.click(); }
+  else if (FS.shown && /^[1-4]$/.test(e.key)) { var rb = $view.querySelector('.rate [data-k="' + (+e.key - 1) + '"]'); if (rb) { e.preventDefault(); rb.click(); } }
+});
 document.addEventListener('submit', function (e) { e.preventDefault(); });
 document.addEventListener('change', function (e) { if (e.target.id === 'sync-file' && e.target.files[0]) { CozumelSync.importFile(e.target.files[0]); e.target.value = ''; } });
 document.addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target.id === 'sync-pw' && e.target.value) { e.preventDefault(); CozumelSync.connect(e.target.value); } });
