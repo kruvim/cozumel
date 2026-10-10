@@ -1,0 +1,251 @@
+{
+  "id": "lesson-03",
+  "order": 3,
+  "topic_he": "מספרים 1-20, מחירים וקניות בשוק",
+  "topic_es": "Números, precios y regateo",
+  "level": "A1",
+  "estimated_minutes": 18,
+  "intro_he": "בשיעור הזה נלמד לספור עד 20, לשאול כמה זה עולה, להבין מחירים בפסו, ולהתמקח בטיאנגיס (שוק מקסיקני) בנימוס. בסוף יש חידון של 8 שאלות.",
+  "cards": [
+    {
+      "id": "l03-c01",
+      "es": "uno, dos, tres, cuatro, cinco",
+      "transliteration_he": "אונו, דוס, טרס, קואטרו, סינקו",
+      "he": "1, 2, 3, 4, 5",
+      "example_es": "Quiero tres tacos.",
+      "example_he": "אני רוצה שלושה טאקוס.",
+      "image": "numeros-1-5.svg",
+      "mexico_specific": false,
+      "note_he": "c לפני i נהגית \"ס\" במקסיקו (cinco = סינקו)."
+    },
+    {
+      "id": "l03-c02",
+      "es": "seis, siete, ocho, nueve, diez",
+      "transliteration_he": "סייס, סייטה, אוצ'ו, נואבה, דייס",
+      "he": "6, 7, 8, 9, 10",
+      "example_es": "Son ocho pesos.",
+      "example_he": "זה שמונה פסו.",
+      "image": "numeros-6-10.svg",
+      "mexico_specific": false,
+      "note_he": "ocho: ch נהגית \"צ'\"."
+    },
+    {
+      "id": "l03-c03",
+      "es": "once, doce, trece, catorce, quince",
+      "transliteration_he": "אונסה, דוסה, טרסה, קטורסה, קינסה",
+      "he": "11, 12, 13, 14, 15",
+      "example_es": "Tengo quince pesos.",
+      "example_he": "יש לי חמישה עשר פסו.",
+      "image": "numeros-11-15.svg",
+      "mexico_specific": false,
+      "note_he": "11-15 הן מילים נפרדות ולא נגזרות."
+    },
+    {
+      "id": "l03-c04",
+      "es": "dieciséis, diecisiete, dieciocho, diecinueve, veinte",
+      "transliteration_he": "דייסיסייס, דייסיסייטה, דייסיאוצ'ו, דייסינואבה, ביינטה",
+      "he": "16, 17, 18, 19, 20",
+      "example_es": "Cuesta veinte pesos.",
+      "example_he": "זה עולה עשרים פסו.",
+      "image": "numeros-16-20.svg",
+      "mexico_specific": false,
+      "note_he": "מ-16 עד 19: \"diez y\" מחוברים למילה אחת."
+    },
+    {
+      "id": "l03-c05",
+      "es": "el peso",
+      "transliteration_he": "אל פסו",
+      "he": "הפסו (המטבע המקסיקני)",
+      "example_es": "Son cincuenta pesos.",
+      "example_he": "זה חמישים פסו.",
+      "image": "peso.svg",
+      "mexico_specific": true,
+      "note_he": "המטבע של מקסיקו הוא ה-peso mexicano (MXN). בטקסט כתוב $ כמו בדולר."
+    },
+    {
+      "id": "l03-c06",
+      "es": "¿Cuánto cuesta?",
+      "transliteration_he": "קואנטו קואסטה",
+      "he": "כמה זה עולה?",
+      "example_es": "¿Cuánto cuesta esto?",
+      "example_he": "כמה זה עולה?",
+      "image": "cuanto-cuesta-esto.svg",
+      "mexico_specific": false,
+      "note_he": "גם: \"¿Cuánto es?\" או \"¿A cómo?\" (שוק)."
+    },
+    {
+      "id": "l03-c07",
+      "es": "¿Cuánto es?",
+      "transliteration_he": "קואנטו אס",
+      "he": "כמה זה (בסך הכול)?",
+      "example_es": "¿Cuánto es todo?",
+      "example_he": "כמה זה בסך הכול?",
+      "image": "cuanto-es.svg",
+      "mexico_specific": false,
+      "note_he": "נפוץ מאוד בחנויות ובדוכנים בסוף הקנייה."
+    },
+    {
+      "id": "l03-c08",
+      "es": "la cuenta",
+      "transliteration_he": "לה קואנטה",
+      "he": "החשבון",
+      "example_es": "La cuenta, por favor.",
+      "example_he": "החשבון, בבקשה.",
+      "image": "la-cuenta.svg",
+      "mexico_specific": false,
+      "note_he": "במסעדה מבקשים \"la cuenta\"."
+    },
+    {
+      "id": "l03-c09",
+      "es": "el tianguis",
+      "transliteration_he": "אל טיאנגיס",
+      "he": "שוק רחוב מקסיקני",
+      "example_es": "Vamos al tianguis el domingo.",
+      "example_he": "הולכים לשוק ביום ראשון.",
+      "image": "tianguis.svg",
+      "mexico_specific": true,
+      "note_he": "המילה מגיעה מנאוואטל. שוק מקומי שבו מתמקחים."
+    },
+    {
+      "id": "l03-c10",
+      "es": "¿Me lo deja en...?",
+      "transliteration_he": "מה לו דֶחה אן",
+      "he": "תוכל להוריד ל...?",
+      "example_es": "¿Me lo deja en cincuenta pesos?",
+      "example_he": "תוכל להוריד לי ל-50 פסו?",
+      "image": "me-lo-deja.svg",
+      "mexico_specific": true,
+      "note_he": "ביטוי מקובל להתמקחות. \"dejar\" = להשאיר, כאן: להשאיר במחיר."
+    },
+    {
+      "id": "l03-c11",
+      "es": "Está muy caro",
+      "transliteration_he": "אסטה מוי קארו",
+      "he": "זה יקר מאוד",
+      "example_es": "Está muy caro, ¿hay descuento?",
+      "example_he": "זה יקר מאוד, יש הנחה?",
+      "image": "muy-caro.svg",
+      "mexico_specific": false,
+      "note_he": "ההפך: \"barato\" = זול. \"descuento\" = הנחה."
+    },
+    {
+      "id": "l03-c12",
+      "es": "¿Qué va a llevar, joven?",
+      "transliteration_he": "קה בה א ייבאר, חובן",
+      "he": "מה תיקח, צעיר/ה?",
+      "example_es": "¿Qué va a llevar, joven?",
+      "example_he": "מה תיקח?",
+      "image": "que-va-a-llevar.svg",
+      "mexico_specific": true,
+      "note_he": "מוכרים מקסיקנים קוראים ללקוחות \"joven\", \"jefe\" או \"güero\" גם אם אינם צעירים. \"llevar\" = לקחת."
+    }
+  ],
+  "quiz": [
+    {
+      "id": "l03-q01",
+      "type": "multiple_choice",
+      "prompt_he": "איך אומרים \"כמה זה עולה?\"",
+      "options": [
+        "¿Cuánto cuesta?",
+        "¿Cómo te llamas?",
+        "¿Dónde está?",
+        "La cuenta"
+      ],
+      "answer": "¿Cuánto cuesta?",
+      "explanation_he": "\"¿Cuánto cuesta?\" שואלת מחיר.",
+      "card_id": "l03-c06"
+    },
+    {
+      "id": "l03-q02",
+      "type": "multiple_choice",
+      "prompt_he": "מהו המספר \"diez\"?",
+      "options": [
+        "10",
+        "12",
+        "7",
+        "20"
+      ],
+      "answer": "10",
+      "explanation_he": "\"diez\" = 10.",
+      "card_id": "l03-c02"
+    },
+    {
+      "id": "l03-q03",
+      "type": "multiple_choice",
+      "prompt_he": "מהו המספר \"veinte\"?",
+      "options": [
+        "20",
+        "15",
+        "12",
+        "16"
+      ],
+      "answer": "20",
+      "explanation_he": "\"veinte\" = 20.",
+      "card_id": "l03-c04"
+    },
+    {
+      "id": "l03-q04",
+      "type": "multiple_choice",
+      "prompt_he": "איך קוראים למטבע של מקסיקו?",
+      "options": [
+        "peso",
+        "euro",
+        "dólar",
+        "real"
+      ],
+      "answer": "peso",
+      "explanation_he": "המטבע הוא peso mexicano.",
+      "card_id": "l03-c05"
+    },
+    {
+      "id": "l03-q05",
+      "type": "multiple_choice",
+      "prompt_he": "מה זה \"tianguis\"?",
+      "options": [
+        "שוק רחוב",
+        "מסעדה",
+        "תחנת אוטובוס",
+        "מלון"
+      ],
+      "answer": "שוק רחוב",
+      "explanation_he": "tianguis = שוק רחוב מקסיקני.",
+      "card_id": "l03-c09"
+    },
+    {
+      "id": "l03-q06",
+      "type": "multiple_choice",
+      "prompt_he": "מה פירוש \"Está muy caro\"?",
+      "options": [
+        "זה יקר מאוד",
+        "זה זול מאוד",
+        "זה טעים",
+        "זה חדש"
+      ],
+      "answer": "זה יקר מאוד",
+      "explanation_he": "caro = יקר, barato = זול.",
+      "card_id": "l03-c11"
+    },
+    {
+      "id": "l03-q07",
+      "type": "fill_in",
+      "prompt_he": "השלימו: La ____ , por favor. (החשבון)",
+      "answer": "cuenta",
+      "explanation_he": "\"la cuenta\" = החשבון.",
+      "card_id": "l03-c08",
+      "accepted_answers": [
+        "cuenta"
+      ]
+    },
+    {
+      "id": "l03-q08",
+      "type": "fill_in",
+      "prompt_he": "כתבו בספרדית את המספר 5:",
+      "answer": "cinco",
+      "explanation_he": "5 = cinco.",
+      "card_id": "l03-c01",
+      "accepted_answers": [
+        "cinco"
+      ]
+    }
+  ]
+}

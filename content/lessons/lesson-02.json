@@ -1,0 +1,252 @@
+{
+  "id": "lesson-02",
+  "order": 2,
+  "topic_he": "להציג את עצמך ושאלות בסיסיות",
+  "topic_es": "Presentarse y preguntas básicas",
+  "level": "A1",
+  "estimated_minutes": 15,
+  "intro_he": "בשיעור הזה נלמד להציג את עצמנו, לומר מאיפה אנחנו, לשאול שם, ולהציל את עצמנו כשלא מבינים: \"no entiendo\" ו-\"más despacio\". בסוף יש חידון של 8 שאלות.",
+  "cards": [
+    {
+      "id": "l02-c01",
+      "es": "Me llamo...",
+      "transliteration_he": "מה יאמו",
+      "he": "קוראים לי...",
+      "example_es": "Me llamo Or.",
+      "example_he": "קוראים לי אור.",
+      "image": "me-llamo.svg",
+      "mexico_specific": false,
+      "note_he": "ה-ll במקסיקו נהגית כמו \"י\". מילולית: \"אני קורא לעצמי\"."
+    },
+    {
+      "id": "l02-c02",
+      "es": "¿Cómo te llamas?",
+      "transliteration_he": "קומו טה יאמאס",
+      "he": "איך קוראים לך?",
+      "example_es": "Hola, ¿cómo te llamas?",
+      "example_he": "היי, איך קוראים לך?",
+      "image": "como-te-llamas.svg",
+      "mexico_specific": false,
+      "note_he": "לאדם מבוגר או זר: \"¿Cómo se llama usted?\"."
+    },
+    {
+      "id": "l02-c03",
+      "es": "Mucho gusto",
+      "transliteration_he": "מוצ'ו גוסטו",
+      "he": "נעים להכיר",
+      "example_es": "Mucho gusto, Ana.",
+      "example_he": "נעים להכיר, אנה.",
+      "image": "mucho-gusto.svg",
+      "mexico_specific": false,
+      "note_he": "ch נהגית \"צ'\". אפשר גם \"Encantado\" (גבר) / \"Encantada\" (אישה)."
+    },
+    {
+      "id": "l02-c04",
+      "es": "Soy de Israel",
+      "transliteration_he": "סוי דה איסראל",
+      "he": "אני מישראל",
+      "example_es": "Soy de Israel, de Tel Aviv.",
+      "example_he": "אני מישראל, מתל אביב.",
+      "image": "soy-de-israel.svg",
+      "mexico_specific": false,
+      "note_he": "\"Soy de\" משמש למוצא. ישראלי = israelí, ישראלית = israelí (אותה צורה)."
+    },
+    {
+      "id": "l02-c05",
+      "es": "¿De dónde eres?",
+      "transliteration_he": "דה דונדה אֶרֶס",
+      "he": "מאיפה אתה?",
+      "example_es": "¿De dónde eres?",
+      "example_he": "מאיפה אתה?",
+      "image": "de-donde-eres.svg",
+      "mexico_specific": false,
+      "note_he": "בצורה מנומסת: \"¿De dónde es usted?\"."
+    },
+    {
+      "id": "l02-c06",
+      "es": "¿Hablas inglés?",
+      "transliteration_he": "אבלאס אינגלס",
+      "he": "אתה מדבר אנגלית?",
+      "example_es": "Disculpa, ¿hablas inglés?",
+      "example_he": "סליחה, אתה מדבר אנגלית?",
+      "image": "hablas-ingles.svg",
+      "mexico_specific": false,
+      "note_he": "ה' שותקת: \"אבלאס\". מנומס: \"¿Habla inglés?\"."
+    },
+    {
+      "id": "l02-c07",
+      "es": "Hablo un poco de español",
+      "transliteration_he": "אבלו און פוקו דה אספאניול",
+      "he": "אני מדבר קצת ספרדית",
+      "example_es": "Hablo un poco de español.",
+      "example_he": "אני מדבר קצת ספרדית.",
+      "image": "hablo-un-poco.svg",
+      "mexico_specific": false,
+      "note_he": "ה-ñ נהגית \"ני\". מקסיקנים מעריכים מאוד כל ניסיון לדבר ספרדית."
+    },
+    {
+      "id": "l02-c08",
+      "es": "No entiendo",
+      "transliteration_he": "נו אנטיינדו",
+      "he": "אני לא מבין",
+      "example_es": "Perdón, no entiendo.",
+      "example_he": "סליחה, אני לא מבין.",
+      "image": "no-entiendo.svg",
+      "mexico_specific": false,
+      "note_he": "ביטוי הצלה חשוב מאוד."
+    },
+    {
+      "id": "l02-c09",
+      "es": "Más despacio, por favor",
+      "transliteration_he": "מאס דספאסיו, פור פאבור",
+      "he": "לאט יותר, בבקשה",
+      "example_es": "Más despacio, por favor.",
+      "example_he": "לאט יותר, בבקשה.",
+      "image": "mas-despacio.svg",
+      "mexico_specific": false,
+      "note_he": "אפשר להוסיף \"¿Puede repetir?\" = אפשר לחזור על זה?"
+    },
+    {
+      "id": "l02-c10",
+      "es": "¿Cómo se dice...?",
+      "transliteration_he": "קומו סה דיסה",
+      "he": "איך אומרים...?",
+      "example_es": "¿Cómo se dice \"thank you\" en español?",
+      "example_he": "איך אומרים \"thank you\" בספרדית?",
+      "image": "como-se-dice.svg",
+      "mexico_specific": false,
+      "note_he": "שימושי מאוד ללימוד מילים חדשות תוך כדי טיול."
+    },
+    {
+      "id": "l02-c11",
+      "es": "Soy turista",
+      "transliteration_he": "סוי טוריסטה",
+      "he": "אני תייר/ת",
+      "example_es": "Soy turista y estoy aquí una semana.",
+      "example_he": "אני תייר ואני כאן שבוע.",
+      "image": "soy-turista.svg",
+      "mexico_specific": false,
+      "note_he": "לשון נקבה: \"soy turista\" אותו הדבר, כי turista לא משתנה."
+    },
+    {
+      "id": "l02-c12",
+      "es": "¿Qué onda?",
+      "transliteration_he": "קה אונדה",
+      "he": "מה המצב? / מה קורה?",
+      "example_es": "¡Qué onda, amigo!",
+      "example_he": "מה קורה, חבר!",
+      "image": "que-onda.svg",
+      "mexico_specific": true,
+      "note_he": "ברכה לא רשמית אופיינית למקסיקו, בין צעירים וחברים. לא מתאימה לאנשים רשמיים."
+    }
+  ],
+  "quiz": [
+    {
+      "id": "l02-q01",
+      "type": "multiple_choice",
+      "prompt_he": "איך אומרים \"קוראים לי...\" בספרדית?",
+      "options": [
+        "Me llamo...",
+        "Soy de...",
+        "Mucho gusto",
+        "No entiendo"
+      ],
+      "answer": "Me llamo...",
+      "explanation_he": "\"Me llamo\" = קוראים לי.",
+      "card_id": "l02-c01"
+    },
+    {
+      "id": "l02-q02",
+      "type": "multiple_choice",
+      "prompt_he": "איך שואלים \"איך קוראים לך?\"",
+      "options": [
+        "¿Cómo te llamas?",
+        "¿De dónde eres?",
+        "¿Hablas inglés?",
+        "¿Qué onda?"
+      ],
+      "answer": "¿Cómo te llamas?",
+      "explanation_he": "\"¿Cómo te llamas?\" שואלת שם.",
+      "card_id": "l02-c02"
+    },
+    {
+      "id": "l02-q03",
+      "type": "multiple_choice",
+      "prompt_he": "מה פירוש \"Mucho gusto\"?",
+      "options": [
+        "נעים להכיר",
+        "תודה רבה",
+        "סליחה",
+        "להתראות"
+      ],
+      "answer": "נעים להכיר",
+      "explanation_he": "אומרים זאת כשפוגשים מישהו חדש.",
+      "card_id": "l02-c03"
+    },
+    {
+      "id": "l02-q04",
+      "type": "multiple_choice",
+      "prompt_he": "איך אומרים \"אני מישראל\"?",
+      "options": [
+        "Soy de Israel",
+        "Me llamo Israel",
+        "Hablo Israel",
+        "Tengo Israel"
+      ],
+      "answer": "Soy de Israel",
+      "explanation_he": "\"Soy de\" + מקום = אני מ...",
+      "card_id": "l02-c04"
+    },
+    {
+      "id": "l02-q05",
+      "type": "multiple_choice",
+      "prompt_he": "מה אומרים כשלא מבינים?",
+      "options": [
+        "No entiendo",
+        "Mucho gusto",
+        "Soy turista",
+        "¿Qué onda?"
+      ],
+      "answer": "No entiendo",
+      "explanation_he": "\"No entiendo\" = אני לא מבין.",
+      "card_id": "l02-c08"
+    },
+    {
+      "id": "l02-q06",
+      "type": "multiple_choice",
+      "prompt_he": "איזה ביטוי הוא סלנג מקסיקני לברכה בין חברים?",
+      "options": [
+        "¿Qué onda?",
+        "¿Cómo se dice?",
+        "Más despacio",
+        "Mucho gusto"
+      ],
+      "answer": "¿Qué onda?",
+      "explanation_he": "\"¿Qué onda?\" = מה קורה? אופייני למקסיקו.",
+      "card_id": "l02-c12"
+    },
+    {
+      "id": "l02-q07",
+      "type": "fill_in",
+      "prompt_he": "השלימו: ¿Hablas ____ ? (אנגלית)",
+      "answer": "inglés",
+      "explanation_he": "\"inglés\" = אנגלית.",
+      "card_id": "l02-c06",
+      "accepted_answers": [
+        "inglés",
+        "ingles"
+      ]
+    },
+    {
+      "id": "l02-q08",
+      "type": "fill_in",
+      "prompt_he": "השלימו: Más ____ , por favor. (לאט)",
+      "answer": "despacio",
+      "explanation_he": "\"Más despacio\" = לאט יותר.",
+      "card_id": "l02-c09",
+      "accepted_answers": [
+        "despacio"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,252 @@
+{
+  "id": "lesson-05",
+  "order": 5,
+  "topic_he": "להתמצא בדרכים ותחבורה",
+  "topic_es": "Cómo moverse: direcciones y transporte",
+  "level": "A1",
+  "estimated_minutes": 18,
+  "intro_he": "בשיעור הזה נלמד לשאול איפה דברים נמצאים, להבין כיוונים, ולהשתמש בתחבורה: מונית, אוטובוס (camión), מטרו ושדה תעופה. בסוף יש חידון של 8 שאלות.",
+  "cards": [
+    {
+      "id": "l05-c01",
+      "es": "¿Dónde está...?",
+      "transliteration_he": "דונדה אסטה",
+      "he": "איפה נמצא...?",
+      "example_es": "¿Dónde está el hotel?",
+      "example_he": "איפה המלון?",
+      "image": "donde-esta.svg",
+      "mexico_specific": false,
+      "note_he": "ה-ó מודגשת. תשובה נפוצה: \"Está allá\" = זה שם."
+    },
+    {
+      "id": "l05-c02",
+      "es": "a la derecha",
+      "transliteration_he": "א לה דרצ'ה",
+      "he": "ימינה",
+      "example_es": "Gire a la derecha.",
+      "example_he": "פנה ימינה.",
+      "image": "derecha.svg",
+      "mexico_specific": false,
+      "note_he": "ch נהגית \"צ'\": דֶרֶצ'ה."
+    },
+    {
+      "id": "l05-c03",
+      "es": "a la izquierda",
+      "transliteration_he": "א לה איסקיירדה",
+      "he": "שמאלה",
+      "example_es": "Está a la izquierda.",
+      "example_he": "זה בצד שמאל.",
+      "image": "izquierda.svg",
+      "mexico_specific": false,
+      "note_he": "qu נהגית \"ק\"."
+    },
+    {
+      "id": "l05-c04",
+      "es": "todo derecho",
+      "transliteration_he": "טודו דרצ'ו",
+      "he": "ישר",
+      "example_es": "Siga todo derecho.",
+      "example_he": "המשך ישר.",
+      "image": "todo-derecho.svg",
+      "mexico_specific": true,
+      "note_he": "במקסיקו אומרים \"todo derecho\" או \"derecho\" ולפעמים \"siga derecho\"."
+    },
+    {
+      "id": "l05-c05",
+      "es": "cerca / lejos",
+      "transliteration_he": "סרקה / לחוס",
+      "he": "קרוב / רחוק",
+      "example_es": "¿Está cerca o lejos?",
+      "example_he": "זה קרוב או רחוק?",
+      "image": "cerca-lejos.svg",
+      "mexico_specific": false,
+      "note_he": "j בספרדית נהגית כמו \"ח\"."
+    },
+    {
+      "id": "l05-c06",
+      "es": "el baño",
+      "transliteration_he": "אל באניו",
+      "he": "השירותים",
+      "example_es": "¿Dónde está el baño?",
+      "example_he": "איפה השירותים?",
+      "image": "bano.svg",
+      "mexico_specific": true,
+      "note_he": "במקסיקו אומרים \"el baño\" (בספרד \"el aseo\")."
+    },
+    {
+      "id": "l05-c07",
+      "es": "el taxi",
+      "transliteration_he": "אל טקסי",
+      "he": "מונית",
+      "example_es": "Necesito un taxi.",
+      "example_he": "אני צריך מונית.",
+      "image": "taxi.svg",
+      "mexico_specific": false,
+      "note_he": "כדאי להזמין מונית באפליקציה או במוקד. לשאול על מחיר לפני נסיעה."
+    },
+    {
+      "id": "l05-c08",
+      "es": "el camión",
+      "transliteration_he": "אל קמיון",
+      "he": "אוטובוס (עירוני)",
+      "example_es": "¿Este camión va al centro?",
+      "example_he": "האוטובוס הזה נוסע למרכז?",
+      "image": "camion.svg",
+      "mexico_specific": true,
+      "note_he": "במקסיקו \"camión\" הוא גם אוטובוס עירוני. אוטובוס בין-עירוני: \"autobús\"."
+    },
+    {
+      "id": "l05-c09",
+      "es": "el autobús",
+      "transliteration_he": "אל אאוטובוס",
+      "he": "אוטובוס (בין-עירוני)",
+      "example_es": "Un boleto de autobús a Cancún.",
+      "example_he": "כרטיס אוטובוס לקנקון.",
+      "image": "autobus.svg",
+      "mexico_specific": false,
+      "note_he": "בין ערים אומרים autobús, ו\"boleto\" = כרטיס."
+    },
+    {
+      "id": "l05-c10",
+      "es": "el metro",
+      "transliteration_he": "אל מטרו",
+      "he": "הרכבת התחתית",
+      "example_es": "¿Dónde está el metro?",
+      "example_he": "איפה המטרו?",
+      "image": "metro.svg",
+      "mexico_specific": false,
+      "note_he": "במקסיקו סיטי יש מטרו נרחב וזול."
+    },
+    {
+      "id": "l05-c11",
+      "es": "el aeropuerto",
+      "transliteration_he": "אל אֶרופוּארטו",
+      "he": "שדה התעופה",
+      "example_es": "Voy al aeropuerto.",
+      "example_he": "אני נוסע לשדה התעופה.",
+      "image": "aeropuerto.svg",
+      "mexico_specific": false,
+      "note_he": "בעת דיבור: \"voy a...\" = אני נוסע ל..."
+    },
+    {
+      "id": "l05-c12",
+      "es": "¿Cuánto tiempo?",
+      "transliteration_he": "קואנטו טיאמפו",
+      "he": "כמה זמן?",
+      "example_es": "¿Cuánto tiempo al centro?",
+      "example_he": "כמה זמן למרכז?",
+      "image": "cuanto-tiempo.svg",
+      "mexico_specific": false,
+      "note_he": "שאלה שימושית על משך נסיעה."
+    }
+  ],
+  "quiz": [
+    {
+      "id": "l05-q01",
+      "type": "multiple_choice",
+      "prompt_he": "איך שואלים \"איפה השירותים?\"",
+      "options": [
+        "¿Dónde está el baño?",
+        "¿Cuánto cuesta?",
+        "¿Cómo te llamas?",
+        "¿Hablas inglés?"
+      ],
+      "answer": "¿Dónde está el baño?",
+      "explanation_he": "\"el baño\" = השירותים.",
+      "card_id": "l05-c06"
+    },
+    {
+      "id": "l05-q02",
+      "type": "multiple_choice",
+      "prompt_he": "מה פירוש \"a la derecha\"?",
+      "options": [
+        "ימינה",
+        "שמאלה",
+        "ישר",
+        "לאחור"
+      ],
+      "answer": "ימינה",
+      "explanation_he": "derecha = ימין.",
+      "card_id": "l05-c02"
+    },
+    {
+      "id": "l05-q03",
+      "type": "multiple_choice",
+      "prompt_he": "מה פירוש \"a la izquierda\"?",
+      "options": [
+        "שמאלה",
+        "ימינה",
+        "קרוב",
+        "רחוק"
+      ],
+      "answer": "שמאלה",
+      "explanation_he": "izquierda = שמאל.",
+      "card_id": "l05-c03"
+    },
+    {
+      "id": "l05-q04",
+      "type": "multiple_choice",
+      "prompt_he": "איך אומרים אוטובוס עירוני במקסיקו?",
+      "options": [
+        "camión",
+        "metro",
+        "avión",
+        "barco"
+      ],
+      "answer": "camión",
+      "explanation_he": "במקסיקו camión הוא אוטובוס עירוני.",
+      "card_id": "l05-c08"
+    },
+    {
+      "id": "l05-q05",
+      "type": "multiple_choice",
+      "prompt_he": "איך אומרים \"שדה תעופה\"?",
+      "options": [
+        "aeropuerto",
+        "estación",
+        "mercado",
+        "hotel"
+      ],
+      "answer": "aeropuerto",
+      "explanation_he": "aeropuerto = שדה תעופה.",
+      "card_id": "l05-c11"
+    },
+    {
+      "id": "l05-q06",
+      "type": "multiple_choice",
+      "prompt_he": "מה פירוש \"todo derecho\"?",
+      "options": [
+        "ישר",
+        "ימינה",
+        "רחוק",
+        "קרוב"
+      ],
+      "answer": "ישר",
+      "explanation_he": "todo derecho = ישר.",
+      "card_id": "l05-c04"
+    },
+    {
+      "id": "l05-q07",
+      "type": "fill_in",
+      "prompt_he": "השלימו: ¿____ está el hotel? (איפה)",
+      "answer": "dónde",
+      "explanation_he": "\"¿Dónde está...?\" = איפה...?",
+      "card_id": "l05-c01",
+      "accepted_answers": [
+        "dónde",
+        "donde"
+      ]
+    },
+    {
+      "id": "l05-q08",
+      "type": "fill_in",
+      "prompt_he": "השלימו: Necesito un ____ . (מונית)",
+      "answer": "taxi",
+      "explanation_he": "taxi = מונית.",
+      "card_id": "l05-c07",
+      "accepted_answers": [
+        "taxi"
+      ]
+    }
+  ]
+}

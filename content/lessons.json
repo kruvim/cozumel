@@ -10,6 +10,42 @@
       "topic": "Saludos y cortesía básica",
       "minutes": 15,
       "file": "lessons/lesson-01.json"
+    },
+    {
+      "id": "lesson-02",
+      "order": 2,
+      "level": "A1",
+      "title_he": "להציג את עצמך ושאלות בסיסיות",
+      "topic": "Presentarse y preguntas básicas",
+      "minutes": 15,
+      "file": "lessons/lesson-02.json"
+    },
+    {
+      "id": "lesson-03",
+      "order": 3,
+      "level": "A1",
+      "title_he": "מספרים 1-20, מחירים וקניות בשוק",
+      "topic": "Números, precios y regateo",
+      "minutes": 18,
+      "file": "lessons/lesson-03.json"
+    },
+    {
+      "id": "lesson-04",
+      "order": 4,
+      "level": "A1",
+      "title_he": "אוכל ומסעדות במקסיקו",
+      "topic": "Comida y restaurantes",
+      "minutes": 18,
+      "file": "lessons/lesson-04.json"
+    },
+    {
+      "id": "lesson-05",
+      "order": 5,
+      "level": "A1",
+      "title_he": "להתמצא בדרכים ותחבורה",
+      "topic": "Cómo moverse: direcciones y transporte",
+      "minutes": 18,
+      "file": "lessons/lesson-05.json"
     }
   ]
 }

@@ -1,0 +1,251 @@
+{
+  "id": "lesson-04",
+  "order": 4,
+  "topic_he": "אוכל ומסעדות במקסיקו",
+  "topic_es": "Comida y restaurantes",
+  "level": "A1",
+  "estimated_minutes": 18,
+  "intro_he": "בשיעור הזה נלמד להזמין אוכל ושתייה, לבקש את התפריט והחשבון, לומר \"טעים\" ו\"בלי חריף\", ולהבין את עניין הטיפ במקסיקו. בסוף יש חידון של 8 שאלות.",
+  "cards": [
+    {
+      "id": "l04-c01",
+      "es": "los tacos",
+      "transliteration_he": "לוס טאקוס",
+      "he": "טאקוס",
+      "example_es": "Quiero tres tacos de pastor.",
+      "example_he": "אני רוצה שלושה טאקוס אל פסטור.",
+      "image": "tacos.svg",
+      "mexico_specific": true,
+      "note_he": "טאקו הוא טורטייה עם מילוי. \"al pastor\" = בשר חזיר בגריל אנכי עם אננס."
+    },
+    {
+      "id": "l04-c02",
+      "es": "el agua",
+      "transliteration_he": "אל אגואה",
+      "he": "מים",
+      "example_es": "Un agua, por favor.",
+      "example_he": "מים, בבקשה.",
+      "image": "agua.svg",
+      "mexico_specific": false,
+      "note_he": "\"agua\" נקבה, אבל אומרים \"el agua\". \"sin gas\" = בלי גז."
+    },
+    {
+      "id": "l04-c03",
+      "es": "Quiero...",
+      "transliteration_he": "קיירו",
+      "he": "אני רוצה...",
+      "example_es": "Quiero una cerveza.",
+      "example_he": "אני רוצה בירה.",
+      "image": "quiero.svg",
+      "mexico_specific": false,
+      "note_he": "ה-qu נהגית \"ק\". אפשר גם \"Me gustaría...\" לנימוס רב יותר."
+    },
+    {
+      "id": "l04-c04",
+      "es": "la carta / el menú",
+      "transliteration_he": "לה קארטה / אל מנו",
+      "he": "התפריט",
+      "example_es": "¿Me trae la carta, por favor?",
+      "example_he": "אפשר להביא לי את התפריט?",
+      "image": "la-carta.svg",
+      "mexico_specific": false,
+      "note_he": "במקסיקו אומרים גם \"el menú\"."
+    },
+    {
+      "id": "l04-c05",
+      "es": "¿Qué recomienda?",
+      "transliteration_he": "קה רקומיינדה",
+      "he": "מה אתה ממליץ?",
+      "example_es": "¿Qué recomienda de la casa?",
+      "example_he": "מה אתה ממליץ מהבית?",
+      "image": "que-recomienda.svg",
+      "mexico_specific": false,
+      "note_he": "שאלה טובה לקבל מנה מקומית."
+    },
+    {
+      "id": "l04-c06",
+      "es": "Está rico",
+      "transliteration_he": "אסטה ריקו",
+      "he": "זה טעים",
+      "example_es": "¡Está muy rico!",
+      "example_he": "זה טעים מאוד!",
+      "image": "esta-rico.svg",
+      "mexico_specific": true,
+      "note_he": "במקסיקו \"rico\" פירושו טעים. בספרד נהוג יותר \"está bueno\"."
+    },
+    {
+      "id": "l04-c07",
+      "es": "sin picante",
+      "transliteration_he": "סין פיקאנטה",
+      "he": "בלי חריף",
+      "example_es": "Sin picante, por favor.",
+      "example_he": "בלי חריף, בבקשה.",
+      "image": "sin-picante.svg",
+      "mexico_specific": true,
+      "note_he": "\"picante\" = חריף. \"salsa\" = רוטב. \"poco picante\" = קצת חריף."
+    },
+    {
+      "id": "l04-c08",
+      "es": "la salsa",
+      "transliteration_he": "לה סאלסה",
+      "he": "רוטב חריף",
+      "example_es": "¿Tiene salsa verde?",
+      "example_he": "יש לכם סלסה ירוקה?",
+      "image": "salsa.svg",
+      "mexico_specific": true,
+      "note_he": "\"salsa verde\" ו\"salsa roja\" מגיעות כמעט לכל שולחן."
+    },
+    {
+      "id": "l04-c09",
+      "es": "la propina",
+      "transliteration_he": "לה פרופינה",
+      "he": "טיפ",
+      "example_es": "La propina es el diez por ciento.",
+      "example_he": "הטיפ הוא עשרה אחוז.",
+      "image": "propina.svg",
+      "mexico_specific": true,
+      "note_he": "במקסיקו נהוג להשאיר 10%-15% טיפ במסעדה."
+    },
+    {
+      "id": "l04-c10",
+      "es": "la cuenta, por favor",
+      "transliteration_he": "לה קואנטה, פור פאבור",
+      "he": "החשבון, בבקשה",
+      "example_es": "Mesero, la cuenta, por favor.",
+      "example_he": "מלצר, החשבון בבקשה.",
+      "image": "cuenta-por-favor.svg",
+      "mexico_specific": false,
+      "note_he": "במקסיקו מלצר נקרא \"mesero\". לעיתים צריך לבקש את החשבון במפורש."
+    },
+    {
+      "id": "l04-c11",
+      "es": "el mesero",
+      "transliteration_he": "אל מסרו",
+      "he": "המלצר",
+      "example_es": "¡Mesero, por favor!",
+      "example_he": "מלצר, בבקשה!",
+      "image": "mesero.svg",
+      "mexico_specific": true,
+      "note_he": "מילה מקסיקנית נפוצה (בספרד: camarero)."
+    },
+    {
+      "id": "l04-c12",
+      "es": "Soy vegetariano",
+      "transliteration_he": "סוי בחטריאנו",
+      "he": "אני צמחוני",
+      "example_es": "Soy vegetariano, no como carne.",
+      "example_he": "אני צמחוני, אני לא אוכל בשר.",
+      "image": "vegetariano.svg",
+      "mexico_specific": false,
+      "note_he": "לאישה: vegetariana. \"No como carne\" = אני לא אוכל בשר."
+    }
+  ],
+  "quiz": [
+    {
+      "id": "l04-q01",
+      "type": "multiple_choice",
+      "prompt_he": "איך מבקשים \"אני רוצה\"?",
+      "options": [
+        "Quiero",
+        "Soy",
+        "Tengo",
+        "Vamos"
+      ],
+      "answer": "Quiero",
+      "explanation_he": "\"Quiero...\" = אני רוצה.",
+      "card_id": "l04-c03"
+    },
+    {
+      "id": "l04-q02",
+      "type": "multiple_choice",
+      "prompt_he": "מה זה \"la carta\" במסעדה?",
+      "options": [
+        "התפריט",
+        "החשבון",
+        "הטיפ",
+        "המים"
+      ],
+      "answer": "התפריט",
+      "explanation_he": "la carta / el menú = התפריט.",
+      "card_id": "l04-c04"
+    },
+    {
+      "id": "l04-q03",
+      "type": "multiple_choice",
+      "prompt_he": "איך אומרים \"בלי חריף\"?",
+      "options": [
+        "sin picante",
+        "con picante",
+        "mucho rico",
+        "la propina"
+      ],
+      "answer": "sin picante",
+      "explanation_he": "\"sin\" = בלי.",
+      "card_id": "l04-c07"
+    },
+    {
+      "id": "l04-q04",
+      "type": "multiple_choice",
+      "prompt_he": "מה פירוש \"Está rico\" במקסיקו?",
+      "options": [
+        "זה טעים",
+        "זה עשיר",
+        "זה יקר",
+        "זה חם"
+      ],
+      "answer": "זה טעים",
+      "explanation_he": "במקסיקו rico = טעים.",
+      "card_id": "l04-c06"
+    },
+    {
+      "id": "l04-q05",
+      "type": "multiple_choice",
+      "prompt_he": "כמה טיפ נהוג להשאיר במסעדה?",
+      "options": [
+        "10%-15%",
+        "0%",
+        "50%",
+        "רק מטבעות"
+      ],
+      "answer": "10%-15%",
+      "explanation_he": "propina = טיפ, בדרך כלל 10-15%.",
+      "card_id": "l04-c09"
+    },
+    {
+      "id": "l04-q06",
+      "type": "multiple_choice",
+      "prompt_he": "איך קוראים למלצר במקסיקו?",
+      "options": [
+        "mesero",
+        "camarero",
+        "profesor",
+        "turista"
+      ],
+      "answer": "mesero",
+      "explanation_he": "mesero היא המילה המקסיקנית.",
+      "card_id": "l04-c11"
+    },
+    {
+      "id": "l04-q07",
+      "type": "fill_in",
+      "prompt_he": "השלימו: Un ____ , por favor. (מים)",
+      "answer": "agua",
+      "explanation_he": "\"agua\" = מים.",
+      "card_id": "l04-c02",
+      "accepted_answers": [
+        "agua"
+      ]
+    },
+    {
+      "id": "l04-q08",
+      "type": "fill_in",
+      "prompt_he": "השלימו: La ____ , por favor. (החשבון)",
+      "answer": "cuenta",
+      "explanation_he": "\"la cuenta\" = החשבון.",
+      "card_id": "l04-c10",
+      "accepted_answers": [
+        "cuenta"
+      ]
+    }
+  ]
+}
