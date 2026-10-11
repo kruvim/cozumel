@@ -95,16 +95,7 @@ function nextLesson() {
 }
 
 /* ---------- speech ---------- */
-function speak(text) {
-  if (!('speechSynthesis' in window)) return;
-  try {
-    speechSynthesis.cancel();
-    var u = new SpeechSynthesisUtterance(text); u.lang = 'es-MX'; u.rate = .85;
-    var v = speechSynthesis.getVoices().filter(function (x) { return /^es[-_]MX/i.test(x.lang); })[0] || speechSynthesis.getVoices().filter(function (x) { return /^es/i.test(x.lang); })[0];
-    if (v) u.voice = v;
-    speechSynthesis.speak(u);
-  } catch (e) {}
-}
+function speak(parts) { if (window.CozumelVoice) CozumelVoice.speak(parts); }
 
 /* ---------- shell ---------- */
 var NAV = [
@@ -325,6 +316,17 @@ function confetti() {
 }
 
 /* progress */
+function voiceCardHtml() {
+  var V = window.CozumelVoice; if (!V || !('speechSynthesis' in window)) return '<div class="card pad vc"><div class="sec">קול ההקראה</div><p class="vc-note">הדפדפן הזה לא תומך בהקראה קולית.</p></div>';
+  var g = V.get(), cur = V.current(), vs = V.voices();
+  var opts = vs.map(function (v) { return '<option value="' + esc(v.voiceURI) + '"' + (cur && cur.voiceURI === v.voiceURI ? ' selected' : '') + '>' + esc(v.name + ' (' + v.lang + ')') + '</option>'; }).join('');
+  return '<div class="card pad vc"><div class="sec">קול ההקראה</div>' +
+    (vs.length ? '<label class="vc-l" for="voice-sel">קול בספרדית</label><select id="voice-sel" dir="ltr">' + opts + '</select>' : '<p class="vc-note">לא נמצאו קולות בספרדית במכשיר. אפשר להתקין קול בהגדרות המכשיר.</p>') +
+    '<div class="vc-l">מהירות</div><div class="seg" role="group" aria-label="מהירות הקראה"><button type="button" class="' + (g.slow ? 'on' : '') + '" data-act="voice-slow" aria-pressed="' + g.slow + '">לאט</button><button type="button" class="' + (g.slow ? '' : 'on') + '" data-act="voice-normal" aria-pressed="' + !g.slow + '">רגיל</button></div>' +
+    '<button type="button" class="cta ghost" data-act="voice-test">' + ICON.spk + 'בדיקת קול</button>' +
+    '<p class="vc-note">איכות הקול תלויה בקולות שמותקנים במכשיר. באייפון: הגדרות &gt; נגישות &gt; תוכן מוקרא &gt; קולות &gt; ספרדית &gt; מקסיקו, ובחירה בקול משופר (Enhanced / Premium).</p></div>';
+}
+function voiceCardUpdate() { var el = document.getElementById('voice-card'); if (el) el.innerHTML = voiceCardHtml(); }
 function progress() {
   var tok = RID;
   return loadLessons().then(function (d) {
@@ -341,7 +343,7 @@ function progress() {
       '<div class="card pad"><div class="sec">דקות לימוד, 7 ימים אחרונים</div><div class="week" role="img" aria-label="גרף דקות לימוד שבועי">' + days.map(function (x) { return '<div><span>' + x[1] + '</span><i style="height:' + Math.round(x[1] / max * 60) + 'px"></i><span>' + he[x[2]] + '</span></div>'; }).join('') + '</div></div>' +
       '<div class="card pad"><div class="sec">כרטיסיות שנלמדו: ' + seen + '</div></div>' +
       '<div class="card badges">' + bd.map(function (b) { return '<div class="bd' + (b[2] ? '' : ' lk') + '"><img src="assets/badge' + (b[0] === 'star' ? '-star' : b[0] === 'flame' ? '-flame' : b[0] === 'bolt' ? '-bolt' : '-monstera') + '.svg" alt="">' + esc(b[1]) + (b[2] ? '' : '<span class="vh"> (נעול)</span>') + '</div>'; }).join('') + '</div>' +
-      '<div id="sync-card">' + (window.CozumelSync ? CozumelSync.html() : '') + '</div>' +
+      '<div id="voice-card">' + voiceCardHtml() + '</div><div id="sync-card">' + (window.CozumelSync ? CozumelSync.html() : '') + '</div>' +
       '<button class="link" data-act="reset">איפוס כל ההתקדמות</button></div>', { title: 'התקדמות' });
     renderNav('progress', false);
   });
@@ -392,7 +394,9 @@ document.addEventListener('click', function (e) {
   var sk = e.target.closest('a.skip'); if (sk) { e.preventDefault(); $view.focus(); return; }
   var t = e.target.closest('[data-act]'); if (!t) return;
   var a = t.getAttribute('data-act');
-  if (a === 'speak') speak(FS.list[FS.i].es_mx);
+  if (a === 'speak') { var sc = FS.list[FS.i]; speak(FS.shown && sc.example ? [sc.es_mx, sc.example.es] : [sc.es_mx]); }
+  else if (a === 'voice-slow' || a === 'voice-normal') { CozumelVoice.set({ slow: a === 'voice-slow' }); voiceCardUpdate(); }
+  else if (a === 'voice-test') speak(['¿Cómo está usted? Buenos días, mucho gusto.']);
   else if (a === 'reveal') { FS.shown = true; renderCard(); }
   else if (a === 'rate' || a === 'next-card') { rateCard(a === 'rate' ? +t.getAttribute('data-k') : 2); }
   else if (a === 'pick') answer(t.getAttribute('data-v'));
@@ -415,7 +419,7 @@ document.addEventListener('keydown', function (e) { // flashcards: Space/Enter o
   else if (FS.shown && /^[1-4]$/.test(e.key)) { var rb = $view.querySelector('.rate [data-k="' + (+e.key - 1) + '"]'); if (rb) { e.preventDefault(); rb.click(); } }
 });
 document.addEventListener('submit', function (e) { e.preventDefault(); });
-document.addEventListener('change', function (e) { if (e.target.id === 'sync-file' && e.target.files[0]) { CozumelSync.importFile(e.target.files[0]); e.target.value = ''; } });
+document.addEventListener('change', function (e) { if (e.target.id === 'voice-sel') { CozumelVoice.set({ uri: e.target.value }); speak(['Hola, ¿cómo estás?']); } if (e.target.id === 'sync-file' && e.target.files[0]) { CozumelSync.importFile(e.target.files[0]); e.target.value = ''; } });
 document.addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target.id === 'sync-pw' && e.target.value) { e.preventDefault(); CozumelSync.connect(e.target.value); } });
 window.addEventListener('hashchange', function () { route(); });
 /* ---------- cross-device sync (optional; app works fully without it) ---------- */
@@ -493,5 +497,6 @@ window.addEventListener('online', function () { doSync(false); });
 document.addEventListener('visibilitychange', function () { if (!document.hidden && Date.now() - SY.last > 30000) doSync(false); });
 if ('serviceWorker' in navigator && location.protocol !== 'file:') navigator.serviceWorker.register('sw.js').catch(function () {});
 route();
+if (window.CozumelVoice) CozumelVoice.ready(3000).then(function () { voiceCardUpdate(); });
 if (CozumelSync.connected()) doSync(false);
 })();
