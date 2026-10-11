@@ -93,7 +93,7 @@ h1,h2,h3,.hf{font-family:var(--font-display);font-weight:800}
 .hint .bub{flex:none;width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center;color:var(--c-gold-700);box-shadow:0 2px 4px rgba(0,0,0,.15)}
 .hint b{display:block;font:800 14px var(--font-display)}
 .reveal{margin-top:12px}
-.rate{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:auto;padding-top:8px}
+.rate{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 .rate button{border-radius:var(--r-md);padding:9px 2px 8px;min-height:var(--tap-min);font:800 14px var(--font-display);color:#fff;line-height:1.15}
 .rate small{display:block;font:600 11px var(--font-body);opacity:.95}
 .rate .again{background:var(--g-rate-again);box-shadow:0 4px 0 #B83A24}
@@ -102,9 +102,6 @@ h1,h2,h3,.hf{font-family:var(--font-display);font-weight:800}
 .rate .easy{background:var(--g-rate-easy);box-shadow:0 4px 0 #5C8A0A;color:var(--c-ink)}
 .rate button:active{transform:translateY(3px)}
 /* rating + reveal row always reachable: stick to the viewport bottom so it can never be below the fold */
-.rate,.screen>[data-act=reveal]{position:sticky;bottom:0;z-index:5}
-.rate{background:var(--c-bg);padding-bottom:max(6px,env(safe-area-inset-bottom))}
-.screen>[data-act=reveal]{margin-bottom:max(0px,env(safe-area-inset-bottom))}
 @media (max-height:700px) and (orientation:portrait),(max-height:700px) and (min-width:700px){.flash .scene{aspect-ratio:330/130}}
 @media (max-width:340px){.rate{grid-template-columns:1fr 1fr}}
 
@@ -196,8 +193,18 @@ h1,h2,h3,.hf{font-family:var(--font-display);font-weight:800}
   .flash .scene{grid-column:1;grid-row:1 / span 8}
   .flash>:not(.scene){grid-column:2;margin-top:4px}
   .flash .word{margin-top:0}
-  .rate{position:sticky;bottom:0;background:var(--c-bg);padding-bottom:6px;z-index:5}
+
   .topbar{padding-top:6px}
   .screen{padding-top:8px}
   .hero{padding-bottom:48px}
 }
+
+/* flashcard actions: one sticky bar, always in view; big targets */
+.actions{position:-webkit-sticky;position:sticky;bottom:0;z-index:5;margin-top:auto;display:flex;flex-direction:column;gap:8px;background:var(--c-bg);padding:8px 0 max(10px,env(safe-area-inset-bottom));box-shadow:0 -10px 12px -6px var(--c-bg)}
+.actions .cta{min-height:58px;font-size:20px;touch-action:manipulation}
+.rate-cap{text-align:center;font:700 13px var(--font-body);color:var(--c-ink-soft)}
+.rate{margin-top:0;padding-top:0}
+.rate button{min-height:56px;font-size:16px;touch-action:manipulation}
+.flash.tappable{cursor:pointer;-webkit-tap-highlight-color:transparent}
+button,[data-act],a{touch-action:manipulation}
+@media (max-height:520px) and (orientation:landscape){.actions{padding-top:4px}.rate-cap{display:none}.actions .cta{min-height:46px}.rate button{min-height:46px}}

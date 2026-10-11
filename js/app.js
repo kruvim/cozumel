@@ -246,15 +246,15 @@ function renderCard() {
   var c = FS.list[FS.i], pct = Math.round(FS.i / FS.list.length * 100);
   setView('<div class="topbar"><a class="x" href="' + back + '" aria-label="סגירה">' + ICON.x + '</a><div class="prog" role="progressbar" aria-valuenow="' + pct + '" aria-valuemax="100" aria-label="התקדמות"><i style="width:' + pct + '%"></i></div></div>' +
     '<div class="screen narrow"><h1 class="vh">כרטיסיות</h1><div class="meta"><span>כרטיסייה ' + (FS.i + 1) + ' מתוך ' + FS.list.length + '</span><span>' + (FS.review ? 'חזרה' : '') + '</span></div>' +
-    '<div class="flash" tabindex="-1">' + imgTag(c) +
+    '<div class="flash' + (FS.shown ? '' : ' tappable') + '" tabindex="-1"' + (FS.shown ? '' : ' data-act="reveal"') + '>' + imgTag(c) +
     '<div class="word">' + '<button class="spk" data-act="speak" aria-label="השמעה: ' + esc(c.es_mx) + '">' + ICON.spk + '</button>' + es(c.es_mx) + '</div>' +
     '<div class="ph">[' + esc(c.transliteration_he) + ']</div>' +
     (FS.shown ? '<div class="heb">' + T(c.he) + '</div>' + (c.mexico_specific ? '<div class="mx">מקסיקו ספציפי' + (c.mexico_note_he ? ' · ' + T(c.mexico_note_he) : '') + '</div>' : '') + (c.example ? '<div class="ex">' + es(c.example.es) + '<div class="small">' + T(c.example.he) + '</div></div>' : '') : '') +
     '</div>' +
     (FS.shown && c.tip_he ? '<div class="hint"><span class="bub">' + ICON.bulb + '</span><div><b>שימו לב</b>' + T(c.tip_he) + '</div></div>' : '') +
-    (FS.shown ? '<div class="rate" role="group" aria-label="דירוג הקושי">' + RATES.map(function (r, k) { return '<button class="' + r[0] + '" data-act="rate" data-k="' + k + '">' + r[1] + '<small>' + r[2] + '</small></button>'; }).join('') + '</div>'
-      : '<button class="cta" data-act="reveal" style="margin-top:auto">הצגת תשובה</button>') + '</div>', { title: 'כרטיסיות' });
-  if (FS.shown) { var rt = $view.querySelector('.rate'); if (rt && rt.scrollIntoView) rt.scrollIntoView({ block: 'nearest' }); }
+    (FS.shown ? '<div class="actions"><div class="rate-cap">איך היה? אפשר לדרג, או פשוט ללחוץ הבא</div><div class="rate" role="group" aria-label="דירוג הקושי">' + RATES.map(function (r, k) { return '<button type="button" class="' + r[0] + '" data-act="rate" data-k="' + k + '">' + r[1] + '<small>' + r[2] + '</small></button>'; }).join('') + '</div><button type="button" class="cta lime next-btn" data-act="next-card">הבא ←</button></div>'
+      : '<div class="actions"><button type="button" class="cta" data-act="reveal">הצגת תשובה</button></div>') + '</div>', { title: 'כרטיסיות' });
+  if (FS.shown) { var rt = $view.querySelector('.actions'); if (rt && rt.scrollIntoView) rt.scrollIntoView({ block: 'nearest' }); }
   var b = FS.shown ? $view.querySelector('.flash') : $view.querySelector('[data-act=reveal]'); if (b) b.focus({ preventScroll: true }); // after reveal keep focus off the rating buttons so a double Enter cannot rate by accident
 }
 
@@ -372,18 +372,29 @@ function route(keep) {
   else p = Promise.resolve(void (location.hash = '#/'));
   p.catch(err);
 }
+function rateCard(k) {
+  if (!FS || !FS.shown || FS.list[FS.i] === undefined) return;
+  try {
+    var c = FS.list[FS.i];
+    S.cards[c.id] = { due: Date.now() + RATES[k][3], last: RATES[k][0] }; reward(2, 0);
+    if (RATES[k][0] === 'again' && FS.list.length < 400) FS.list.push(c); // 'again' returns later in this session
+  } catch (e) { try { console.error('rate failed, advancing anyway', e); } catch (_) {} }
+  FS.i++; FS.shown = false;
+  try { renderCard(); } catch (e2) { try { console.error('render failed', e2); } catch (_) {} err(e2); }
+}
+/* swipe (after reveal): a horizontal swipe = continue */
+(function () {
+  var sx = 0, sy = 0, on = false;
+  document.addEventListener('touchstart', function (e) { var t = e.touches[0]; on = !!(t && $view.querySelector('.next-btn') && !e.target.closest('button,a')); if (on) { sx = t.clientX; sy = t.clientY; } }, { passive: true });
+  document.addEventListener('touchend', function (e) { if (!on) return; on = false; var t = e.changedTouches[0]; if (t && Math.abs(t.clientX - sx) > 70 && Math.abs(t.clientY - sy) < 45) rateCard(2); }, { passive: true });
+})();
 document.addEventListener('click', function (e) {
   var sk = e.target.closest('a.skip'); if (sk) { e.preventDefault(); $view.focus(); return; }
   var t = e.target.closest('[data-act]'); if (!t) return;
   var a = t.getAttribute('data-act');
   if (a === 'speak') speak(FS.list[FS.i].es_mx);
   else if (a === 'reveal') { FS.shown = true; renderCard(); }
-  else if (a === 'rate') {
-    var k = +t.getAttribute('data-k'), c = FS.list[FS.i];
-    S.cards[c.id] = { due: Date.now() + RATES[k][3], last: RATES[k][0] }; reward(2, 0);
-    if (RATES[k][0] === 'again' && FS.list.length < 400) FS.list.push(c); // 'again' returns later in this session
-    FS.i++; FS.shown = false; renderCard();
-  }
+  else if (a === 'rate' || a === 'next-card') { rateCard(a === 'rate' ? +t.getAttribute('data-k') : 2); }
   else if (a === 'pick') answer(t.getAttribute('data-v'));
   else if (a === 'check') { var v = document.getElementById('ans').value; if (v.trim()) answer(v); }
   else if (a === 'retry') { RID++; startQuiz(QS.l.id).catch(err); }
@@ -400,6 +411,7 @@ document.addEventListener('keydown', function (e) { // flashcards: Space/Enter o
   if (e.ctrlKey || e.metaKey || e.altKey || !FS || !/^#\/(cards|review)\b/.test(location.hash) || !$view.querySelector('.flash')) return;
   var tg = e.target && e.target.tagName; if (tg === 'INPUT' || tg === 'TEXTAREA' || tg === 'A') return;
   if (!FS.shown && (e.key === ' ' || e.key === 'Enter') && tg !== 'BUTTON') { e.preventDefault(); var rv = $view.querySelector('[data-act=reveal]'); if (rv) rv.click(); }
+  else if (FS.shown && (e.key === ' ' || e.key === 'Enter') && tg !== 'BUTTON') { e.preventDefault(); rateCard(2); }
   else if (FS.shown && /^[1-4]$/.test(e.key)) { var rb = $view.querySelector('.rate [data-k="' + (+e.key - 1) + '"]'); if (rb) { e.preventDefault(); rb.click(); } }
 });
 document.addEventListener('submit', function (e) { e.preventDefault(); });
