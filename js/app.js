@@ -13,7 +13,14 @@ var LAT = /[\u00BF\u00A1]?[A-Za-z\u00C0-\u00FF_][A-Za-z\u00C0-\u00FF0-9_]*(?:[ '
 // Hebrew text that may embed Spanish: escape, then isolate each Latin run so punctuation/quotes/order stay correct in RTL.
 function T(s) {
   s = String(s == null ? '' : s); var out = '', last = 0, m; LAT.lastIndex = 0;
-  while ((m = LAT.exec(s))) { out += esc(s.slice(last, m.index)) + '<bdi class="lt" dir="ltr" lang="es-MX">' + esc(m[0]) + '</bdi>'; last = m.index + m[0].length; }
+  while ((m = LAT.exec(s))) {
+    var a = m.index, z = a + m[0].length;
+    // keep surrounding straight/smart quotes inside the isolate so they hug the Spanish phrase
+    if (a > 0 && /["\u201C\u201D\u05F4]/.test(s[a - 1]) && /["\u201C\u201D\u05F4]/.test(s[z] || '')) { a--; z++; }
+    if (a < last) { a = last; }
+    var run = s.slice(a, z);
+    out += esc(s.slice(last, a)) + '<bdi class="lt' + (run.length <= 28 ? ' nw' : '') + '" dir="ltr" lang="es-MX">' + esc(run) + '</bdi>'; last = z; LAT.lastIndex = z;
+  }
   return out + esc(s.slice(last));
 }
 var RID = 0; // route generation: a slow screen must never overwrite a newer one

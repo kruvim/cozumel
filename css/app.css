@@ -178,7 +178,7 @@ h1,h2,h3,.hf{font-family:var(--font-display);font-weight:800}
 .sy-st.ok i{background:var(--c-lime-500)}.sy-st.busy i{background:var(--c-teal-400)}.sy-st.bad i{background:#E5484D}.sy-st.offline i{background:#F5A524}
 
 /* Spanish runs embedded in Hebrew text (see T() in app.js) */
-.lt{unicode-bidi:isolate;font-family:var(--font-display)}
+.lt{unicode-bidi:isolate;direction:ltr;font-family:var(--font-display)}
 .node .l .lt{-webkit-text-stroke:0}
 /* keep long words from forcing overflow */
 .q,.heb,.word,.li b,.fb p,.hint,.mx{overflow-wrap:anywhere}
@@ -215,3 +215,5 @@ button,[data-act],a{touch-action:manipulation}
 .vc .seg{display:flex;gap:8px}.vc .seg button{flex:1;min-height:var(--tap-min);border-radius:var(--r-xl);border:2px solid var(--c-border-strong);background:#fff;color:var(--c-ink);font:800 15px var(--font-display)}
 .vc .seg button.on{background:var(--c-lime-400);border-color:var(--c-lime-600);color:var(--c-lime-ink)}
 .vc-note{margin:0;font:500 12.5px/1.5 var(--font-body);color:var(--c-ink-soft)}
+
+.lt.nw{white-space:nowrap}
